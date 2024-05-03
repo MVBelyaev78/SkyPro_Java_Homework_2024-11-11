@@ -83,5 +83,7 @@ public class Main {
         System.out.println();
         System.out.println("Full names of all employees:");
         printFullNamesList(arrEmployee);
+        System.out.println();
+        System.out.printf("Current value of sequence of id is %s", Employee.getCurrentSequenceIdValue());
     }
 }

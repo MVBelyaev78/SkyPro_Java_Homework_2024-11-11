@@ -1,11 +1,19 @@
 public class Employee {
-    private static int idSequence = 1;
+    private static int sequenceId = 1;
     private static final int MIN_CODE_DEPARTMENT = 1;
     private static final int MAX_CODE_DEPARTMENT = 5;
     private final int id;
     private final String fullName;
     private int codeDepartment;
     private int salary;
+
+    public static int getCurrentSequenceIdValue() {
+        return sequenceId;
+    }
+
+    private static int getNextSequenceIdValue() {
+        return sequenceId++;
+    }
 
     public int getId() {
         return id;
@@ -39,12 +47,8 @@ public class Employee {
         this.salary = salary;
     }
 
-    private int getNextId() {
-        return idSequence++;
-    }
-
     public Employee(String fullName, int codeDepartment, int salary) {
-        this.id = getNextId();
+        this.id = getNextSequenceIdValue();
         this.fullName = fullName;
         this.codeDepartment = codeDepartment;
         this.salary = salary;
