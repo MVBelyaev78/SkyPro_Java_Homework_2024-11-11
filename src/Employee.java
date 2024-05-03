@@ -11,7 +11,7 @@ public class Employee {
         return sequenceId;
     }
 
-    private static int getNextSequenceIdValue() {
+    public static int getNextSequenceIdValue() {
         return sequenceId++;
     }
 
