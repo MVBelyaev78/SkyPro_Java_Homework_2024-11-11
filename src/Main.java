@@ -1,5 +1,22 @@
 public class Main {
 
+    public static void main(String[] args) {
+        Employee[] arrEmployee = initArrEmployees();
+        editArrEmployees(arrEmployee);
+        printAllEmployees(arrEmployee);
+        System.out.println();
+        System.out.printf("Salaries sum is %s\n", getSumSalaries(arrEmployee));
+        System.out.printf("Lowest paid employee is %s\n", getLowestPaidEmployee(arrEmployee));
+        System.out.printf("Highest paid employee is %s\n", getHighestPaidEmployee(arrEmployee));
+        System.out.printf("Average of salaries is %s\n",
+                String.format("%.2f", getAverageSalaries(arrEmployee)));
+        System.out.println();
+        System.out.println("Full names of all employees:");
+        printFullNamesList(arrEmployee);
+        System.out.println();
+        System.out.printf("Current value of sequence of id is %s", Employee.getCurrentSequenceIdValue());
+    }
+
     public static Employee[] initArrEmployees() {
         Employee[] arrEmployee = new Employee[10];
         arrEmployee[0] = new Employee("Ellen White", 1, 2931);
@@ -68,22 +85,5 @@ public class Main {
         for (Employee e : arrEmployee) {
             System.out.println(e.getFullName());
         }
-    }
-
-    public static void main(String[] args) {
-        Employee[] arrEmployee = initArrEmployees();
-        editArrEmployees(arrEmployee);
-        printAllEmployees(arrEmployee);
-        System.out.println();
-        System.out.printf("Salaries sum is %s\n", getSumSalaries(arrEmployee));
-        System.out.printf("Lowest paid employee is %s\n", getLowestPaidEmployee(arrEmployee));
-        System.out.printf("Highest paid employee is %s\n", getHighestPaidEmployee(arrEmployee));
-        System.out.printf("Average of salaries is %s\n",
-                String.format("%.2f", getAverageSalaries(arrEmployee)));
-        System.out.println();
-        System.out.println("Full names of all employees:");
-        printFullNamesList(arrEmployee);
-        System.out.println();
-        System.out.printf("Current value of sequence of id is %s", Employee.getCurrentSequenceIdValue());
     }
 }

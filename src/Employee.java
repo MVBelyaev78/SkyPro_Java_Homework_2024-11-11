@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Employee {
     private static int sequenceId = 1;
     private static final int MIN_CODE_DEPARTMENT = 1;
@@ -7,12 +9,11 @@ public class Employee {
     private int codeDepartment;
     private int salary;
 
-    public static int getCurrentSequenceIdValue() {
-        return sequenceId;
-    }
-
-    public static int getNextSequenceIdValue() {
-        return sequenceId++;
+    public Employee(String fullName, int codeDepartment, int salary) {
+        this.id = getNextSequenceIdValue();
+        this.fullName = fullName;
+        this.codeDepartment = codeDepartment;
+        this.salary = salary;
     }
 
     public int getId() {
@@ -47,13 +48,6 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Employee(String fullName, int codeDepartment, int salary) {
-        this.id = getNextSequenceIdValue();
-        this.fullName = fullName;
-        this.codeDepartment = codeDepartment;
-        this.salary = salary;
-    }
-
     public boolean equals(Object object) {
         if (this == object) {
             return true;
@@ -62,17 +56,13 @@ public class Employee {
             return false;
         }
         final Employee that = (Employee) object;
-        boolean result = getFullName().equals(that.getFullName());
-        result = result && getCodeDepartment() == that.getCodeDepartment();
-        result = result && getSalary() == that.getSalary();
-        return result;
+        return getFullName().equals(that.getFullName()) &&
+                getCodeDepartment() == that.getCodeDepartment() &&
+                getSalary() == that.getSalary();
     }
 
     public int hashCode() {
-        int result = getFullName() == null ? 0 : getFullName().hashCode();
-        result = 31 * result + getCodeDepartment();
-        result = 31 * result + getSalary();
-        return result;
+        return Objects.hash(getFullName(), getCodeDepartment(), getSalary());
     }
 
     public String toString() {
@@ -81,5 +71,13 @@ public class Employee {
                 getFullName(),
                 getCodeDepartment(),
                 getSalary());
+    }
+
+    public static int getCurrentSequenceIdValue() {
+        return sequenceId;
+    }
+
+    public static int getNextSequenceIdValue() {
+        return sequenceId++;
     }
 }
