@@ -2,18 +2,20 @@ import java.util.Objects;
 
 public class Employee {
     private static int sequenceId = 1;
-    private static final int MIN_CODE_DEPARTMENT = 1;
-    private static final int MAX_CODE_DEPARTMENT = 5;
+    public static final int MIN_CODE_DEPARTMENT = 1;
+    public static final int MAX_CODE_DEPARTMENT = 5;
     private final int id;
     private final String fullName;
     private int codeDepartment;
     private int salary;
+    private static boolean markerPrintCodeDepartment;
 
     public Employee(String fullName, int codeDepartment, int salary) {
         this.id = getNextSequenceIdValue();
         this.fullName = fullName;
-        this.codeDepartment = codeDepartment;
-        this.salary = salary;
+        setCodeDepartment(codeDepartment);
+        setSalary(salary);
+        setMarkerPrintCodeDepartment(true);
     }
 
     public int getId() {
@@ -48,6 +50,22 @@ public class Employee {
         this.salary = salary;
     }
 
+    public static boolean isMarkerPrintCodeDepartment() {
+        return markerPrintCodeDepartment;
+    }
+
+    public static void setMarkerPrintCodeDepartment(boolean markerPrintCodeDepartment) {
+        Employee.markerPrintCodeDepartment = markerPrintCodeDepartment;
+    }
+
+    public static int getCurrentSequenceIdValue() {
+        return sequenceId;
+    }
+
+    public static int getNextSequenceIdValue() {
+        return sequenceId++;
+    }
+
     public boolean equals(Object object) {
         if (this == object) {
             return true;
@@ -66,18 +84,16 @@ public class Employee {
     }
 
     public String toString() {
-        return String.format("(%s) \"%s\": department code is %s, salary is %s",
-                getId(),
-                getFullName(),
-                getCodeDepartment(),
-                getSalary());
-    }
-
-    public static int getCurrentSequenceIdValue() {
-        return sequenceId;
-    }
-
-    public static int getNextSequenceIdValue() {
-        return sequenceId++;
+        String result;
+        if (isMarkerPrintCodeDepartment()) {
+            result = String.format("(%s) \"%s\": department code is %s, salary is %s",
+                    getId(),
+                    getFullName(),
+                    getCodeDepartment(),
+                    getSalary());
+        } else {
+            result = String.format("(%s) \"%s\": salary is %s", getId(), getFullName(), getSalary());
+        }
+        return result;
     }
 }
