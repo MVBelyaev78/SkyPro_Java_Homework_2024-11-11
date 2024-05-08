@@ -8,14 +8,14 @@ public class Employee {
     private final String fullName;
     private int codeDepartment;
     private int salary;
-    private static boolean markerPrintCodeDepartment;
+    private static boolean printCodeDepartment;
 
     public Employee(String fullName, int codeDepartment, int salary) {
         this.id = getNextSequenceIdValue();
         this.fullName = fullName;
         setCodeDepartment(codeDepartment);
         setSalary(salary);
-        setMarkerPrintCodeDepartment(true);
+        selectPrintCodeDepartment();
     }
 
     public int getId() {
@@ -50,12 +50,16 @@ public class Employee {
         this.salary = salary;
     }
 
-    public static boolean isMarkerPrintCodeDepartment() {
-        return markerPrintCodeDepartment;
+    public static boolean isPrintCodeDepartment() {
+        return printCodeDepartment;
     }
 
-    public static void setMarkerPrintCodeDepartment(boolean markerPrintCodeDepartment) {
-        Employee.markerPrintCodeDepartment = markerPrintCodeDepartment;
+    public static void selectPrintCodeDepartment() {
+        printCodeDepartment = true;
+    }
+
+    public static void unselectPrintCodeDepartment() {
+        printCodeDepartment = false;
     }
 
     public static int getCurrentSequenceIdValue() {
@@ -85,7 +89,7 @@ public class Employee {
 
     public String toString() {
         String result;
-        if (isMarkerPrintCodeDepartment()) {
+        if (isPrintCodeDepartment()) {
             result = String.format("(%s) \"%s\": department code is %s, salary is %s",
                     getId(),
                     getFullName(),

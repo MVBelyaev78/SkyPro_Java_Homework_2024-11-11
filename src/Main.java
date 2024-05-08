@@ -23,7 +23,7 @@ public class Main {
         System.out.printf("Employees with salary equal or more than %s\n", salaryBound);
         printEmployeesMoreOrEqualSalary(arrEmployee, salaryBound);
         System.out.println();
-        Employee.setMarkerPrintCodeDepartment(false);
+        Employee.unselectPrintCodeDepartment();
         for (int d = Employee.MIN_CODE_DEPARTMENT; d <= Employee.MAX_CODE_DEPARTMENT; d++) {
             System.out.printf("Department code is %s\n", d);
             printAllEmployees(arrEmployee, d);
@@ -41,7 +41,7 @@ public class Main {
             printAllEmployees(arrEmployee, d);
             System.out.println();
         }
-        Employee.setMarkerPrintCodeDepartment(true);
+        Employee.selectPrintCodeDepartment();
     }
 
     public static Employee[] initArrEmployees() {
