@@ -72,7 +72,7 @@ public class Main {
 
     public static void printAllEmployees(Employee[] arrEmployee, int codeDepartment) {
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment)) {
+            if (e.checkCodeDepartment(codeDepartment)) {
                 System.out.println(e);
             }
         }
@@ -85,7 +85,7 @@ public class Main {
     public static int getSumSalaries(Employee[] arrEmployee, int codeDepartment) {
         int result = 0;
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment)) {
+            if (e.checkCodeDepartment(codeDepartment)) {
                 result += e.getSalary();
             }
         }
@@ -100,7 +100,7 @@ public class Main {
         Employee lowestPaidEmployee = null;
         int currentSalary = 0;
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment) &&
+            if (e.checkCodeDepartment(codeDepartment) &&
                     (lowestPaidEmployee == null || e.getSalary() < currentSalary)) {
                 currentSalary = e.getSalary();
                 lowestPaidEmployee = e;
@@ -117,7 +117,7 @@ public class Main {
         Employee highestPaidEmployee = null;
         int currentSalary = 0;
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment) &&
+            if (e.checkCodeDepartment(codeDepartment) &&
                     (highestPaidEmployee == null || e.getSalary() > currentSalary)) {
                 currentSalary = e.getSalary();
                 highestPaidEmployee = e;
@@ -133,7 +133,7 @@ public class Main {
     public static double getAverageSalaries(Employee[] arrEmployee, int codeDepartment) {
         int countEmployees = 0;
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment)) {
+            if (e.checkCodeDepartment(codeDepartment)) {
                 countEmployees++;
             }
         }
@@ -146,7 +146,7 @@ public class Main {
 
     public static void indexSalaries(Employee[] arrEmployee, int ratePercent, int codeDepartment) {
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment)) {
+            if (e.checkCodeDepartment(codeDepartment)) {
                 e.setSalary(Math.round(e.getSalary() * (1f + ratePercent / 100f)));
             }
         }
@@ -158,7 +158,7 @@ public class Main {
 
     public static void printFullNamesList(Employee[] arrEmployee, int codeDepartment) {
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment)) {
+            if (e.checkCodeDepartment(codeDepartment)) {
                 System.out.println(e.getFullName());
             }
         }
@@ -170,7 +170,7 @@ public class Main {
 
     public static void printEmployeesLessSalary(Employee[] arrEmployee, int salary, int codeDepartment) {
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment) && e.getSalary() < salary) {
+            if (e.checkCodeDepartment(codeDepartment) && e.getSalary() < salary) {
                 System.out.println(e);
             }
         }
@@ -182,13 +182,9 @@ public class Main {
 
     public static void printEmployeesMoreOrEqualSalary(Employee[] arrEmployee, int salary, int codeDepartment) {
         for (Employee e : arrEmployee) {
-            if (checkCodeDepartment(e, codeDepartment) && e.getSalary() >= salary) {
+            if (e.checkCodeDepartment(codeDepartment) && e.getSalary() >= salary) {
                 System.out.println(e);
             }
         }
-    }
-
-    public static boolean checkCodeDepartment(Employee employee, int codeDepartment) {
-        return (codeDepartment == 0 || employee.getCodeDepartment() == codeDepartment);
     }
 }

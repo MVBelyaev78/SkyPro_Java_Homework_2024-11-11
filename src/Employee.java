@@ -96,4 +96,8 @@ public class Employee {
         }
         return result;
     }
+
+    public boolean checkCodeDepartment(int codeDepartment) {
+        return (codeDepartment == 0 || getCodeDepartment() == codeDepartment);
+    }
 }
