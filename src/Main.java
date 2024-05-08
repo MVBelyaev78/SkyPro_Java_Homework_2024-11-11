@@ -145,6 +145,9 @@ public class Main {
     }
 
     public static void indexSalaries(Employee[] arrEmployee, int ratePercent, int codeDepartment) {
+        if (ratePercent <= 0) {
+            throw new IllegalArgumentException("Rate can't be non-positive");
+        }
         for (Employee e : arrEmployee) {
             if (e.checkCodeDepartment(codeDepartment)) {
                 e.setSalary(Math.round(e.getSalary() * (1f + ratePercent / 100f)));
