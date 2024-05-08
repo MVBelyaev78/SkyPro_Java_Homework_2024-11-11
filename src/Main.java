@@ -1,9 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        final int salaryBound = 4000;
-        Employee[] arrEmployee = initArrEmployees();
-        editArrEmployees(arrEmployee);
+        Employee[] arrEmployee = Test.initArrEmployees();
         printAllEmployees(arrEmployee);
         System.out.println();
         System.out.printf("Salaries sum is %s\n", getSumSalaries(arrEmployee));
@@ -17,11 +15,11 @@ public class Main {
         System.out.println();
         System.out.printf("Current value of sequence of id is %s\n", Employee.getCurrentSequenceIdValue());
         System.out.println();
-        System.out.printf("Employees with salary less than %s\n", salaryBound);
-        printEmployeesLessSalary(arrEmployee, salaryBound);
+        System.out.printf("Employees with salary less than %s\n", Test.SALARY_BOUND);
+        printEmployeesLessSalary(arrEmployee, Test.SALARY_BOUND);
         System.out.println();
-        System.out.printf("Employees with salary equal or more than %s\n", salaryBound);
-        printEmployeesMoreOrEqualSalary(arrEmployee, salaryBound);
+        System.out.printf("Employees with salary equal or more than %s\n", Test.SALARY_BOUND);
+        printEmployeesMoreOrEqualSalary(arrEmployee, Test.SALARY_BOUND);
         System.out.println();
         Employee.unselectPrintCodeDepartment();
         for (int d = Employee.MIN_CODE_DEPARTMENT; d <= Employee.MAX_CODE_DEPARTMENT; d++) {
@@ -32,38 +30,16 @@ public class Main {
             System.out.printf("Highest paid employee is %s\n", getHighestPaidEmployee(arrEmployee, d));
             System.out.printf("Average of salaries is %s\n",
                     String.format("%.2f", getAverageSalaries(arrEmployee, d)));
-            System.out.printf("Employees with salary less than %s\n", salaryBound);
-            printEmployeesLessSalary(arrEmployee, salaryBound, d);
-            System.out.printf("Employees with salary equal or more than %s\n", salaryBound);
-            printEmployeesMoreOrEqualSalary(arrEmployee, salaryBound, d);
+            System.out.printf("Employees with salary less than %s\n", Test.SALARY_BOUND);
+            printEmployeesLessSalary(arrEmployee, Test.SALARY_BOUND, d);
+            System.out.printf("Employees with salary equal or more than %s\n", Test.SALARY_BOUND);
+            printEmployeesMoreOrEqualSalary(arrEmployee, Test.SALARY_BOUND, d);
             System.out.println("Indexed salaries");
             indexSalaries(arrEmployee, 13, d);
             printAllEmployees(arrEmployee, d);
             System.out.println();
         }
         Employee.selectPrintCodeDepartment();
-    }
-
-    public static Employee[] initArrEmployees() {
-        Employee[] arrEmployee = new Employee[10];
-        arrEmployee[0] = new Employee("Ellen White", 1, 2931);
-        arrEmployee[1] = new Employee("John Black", 1, 3720);
-        arrEmployee[2] = new Employee("Susan Brown", 2, 6800);
-        arrEmployee[3] = new Employee("Larry Hagman", 2, 1345);
-        arrEmployee[4] = new Employee("Stanley Miller", 2, 5000);
-        arrEmployee[5] = new Employee("Philipp Roberts", 3, 6220);
-        arrEmployee[6] = new Employee("Neil Green", 4, 5000);
-        arrEmployee[7] = new Employee("Anna Williams", 4, 4000);
-        arrEmployee[8] = new Employee("Lucinda Watson", 5, 5000);
-        arrEmployee[9] = new Employee("Mick Jones", 5, 1567);
-        return arrEmployee;
-    }
-
-    public static void editArrEmployees(Employee[] arrEmployee) {
-        arrEmployee[2].setCodeDepartment(4);
-        arrEmployee[3].setSalary(1250);
-        arrEmployee[4].setCodeDepartment(4);
-        arrEmployee[4].setSalary(3400);
     }
 
     public static void printAllEmployees(Employee[] arrEmployee) {
