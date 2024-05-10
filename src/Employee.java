@@ -47,8 +47,6 @@ public class Employee {
         }
         this.salary = salary;
     }
-
-
     public static int getCurrentSequenceIdValue() {
         return sequenceId;
     }
@@ -93,10 +91,10 @@ public class Employee {
     }
 
     public boolean checkSalaryLowerBound(int salaryLowerBound) {
-        return (salaryLowerBound == Integer.MAX_VALUE || getSalary() >= salaryLowerBound);
+        return (getSalary() >= salaryLowerBound);
     }
 
     public boolean checkSalaryUpperBound(int salaryUpperBound) {
-        return (salaryUpperBound == 0 || getSalary() < salaryUpperBound);
+        return (getSalary() < salaryUpperBound);
     }
 }

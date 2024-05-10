@@ -15,7 +15,6 @@ public class EmployeeBook {
         initSalaryUpperBound();
     }
 
-
     public Employee[] getArrEmployee() {
         return arrEmployee;
     }
@@ -53,7 +52,7 @@ public class EmployeeBook {
     }
 
     public static void initSalaryLowerBound() {
-        salaryLowerBound = Integer.MAX_VALUE;
+        salaryLowerBound = 0;
     }
 
     public static int getSalaryUpperBound() {
@@ -65,7 +64,7 @@ public class EmployeeBook {
     }
 
     public static void initSalaryUpperBound() {
-        salaryUpperBound = 0;
+        salaryUpperBound = Integer.MAX_VALUE;
     }
 
     public boolean equals(Object object) {
@@ -178,5 +177,4 @@ public class EmployeeBook {
             }
         }
     }
-
 }
