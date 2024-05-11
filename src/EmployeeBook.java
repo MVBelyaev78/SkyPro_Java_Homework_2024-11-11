@@ -1,70 +1,14 @@
 import java.util.Arrays;
 
 public class EmployeeBook {
-    private Employee[] arrEmployee;
-    private static boolean printCodeDepartment;
-    private static int printedCodeDepartment;
-    private static int salaryLowerBound;
-    private static int salaryUpperBound;
+    private final Employee[] arrEmployee;
 
     public EmployeeBook(Employee[] arrEmployee) {
-        this.arrEmployee = arrEmployee;
-        selectPrintCodeDepartment();
-        initPrintedCodeDepartment();
-        initSalaryLowerBound();
-        initSalaryUpperBound();
+        this.arrEmployee = arrEmployee.clone();
     }
 
     public Employee[] getArrEmployee() {
         return arrEmployee;
-    }
-
-    public static boolean isPrintCodeDepartment() {
-        return printCodeDepartment;
-    }
-
-    public static void selectPrintCodeDepartment() {
-        printCodeDepartment = true;
-    }
-
-    public static void unselectPrintCodeDepartment() {
-        printCodeDepartment = false;
-    }
-
-    public static void initPrintedCodeDepartment() {
-        printedCodeDepartment = 0;
-    }
-
-    public static int getPrintedCodeDepartment() {
-        return printedCodeDepartment;
-    }
-
-    public static void setPrintedCodeDepartment(int printedCodeDepartment) {
-        EmployeeBook.printedCodeDepartment = printedCodeDepartment;
-    }
-
-    public static int getSalaryLowerBound() {
-        return salaryLowerBound;
-    }
-
-    public static void setSalaryLowerBound(int salaryLowerBound) {
-        EmployeeBook.salaryLowerBound = salaryLowerBound;
-    }
-
-    public static void initSalaryLowerBound() {
-        salaryLowerBound = 0;
-    }
-
-    public static int getSalaryUpperBound() {
-        return salaryUpperBound;
-    }
-
-    public static void setSalaryUpperBound(int salaryUpperBound) {
-        EmployeeBook.salaryUpperBound = salaryUpperBound;
-    }
-
-    public static void initSalaryUpperBound() {
-        salaryUpperBound = Integer.MAX_VALUE;
     }
 
     public boolean equals(Object object) {
@@ -82,15 +26,19 @@ public class EmployeeBook {
     }
 
     public String toString() {
-        StringBuilder result = new StringBuilder();
+        throw new RuntimeException("EmployeeBook object can't be printed");
+    }
+
+    public void printAllEmployees() {
+        printAllEmployees(0, true);
+    }
+
+    public void printAllEmployees(int codeDepartment, boolean printCodeDepartment) {
         for (Employee e : getArrEmployee()) {
-            if (e.checkCodeDepartment(getPrintedCodeDepartment()) &&
-                    e.checkSalaryLowerBound(getSalaryLowerBound()) &&
-                    e.checkSalaryUpperBound(getSalaryUpperBound())) {
-                result.append(String.format("%s\n", e));
+            if (e.checkCodeDepartment(codeDepartment)) {
+                System.out.println(e.getEmployeeData(printCodeDepartment));
             }
         }
-        return result.toString();
     }
 
     public int getSumSalaries() {
@@ -174,6 +122,29 @@ public class EmployeeBook {
         for (Employee e : getArrEmployee()) {
             if (e.checkCodeDepartment(codeDepartment)) {
                 System.out.println(e.getFullName());
+            }
+        }
+    }
+
+    public void printEmployeesLessSalary(int salary) {
+        printEmployeesLessSalary(salary, 0, true);
+    }
+
+    public void printEmployeesLessSalary(int salary, int codeDepartment, boolean printCodeDepartment) {
+        for (Employee e : arrEmployee) {
+            if (e.checkCodeDepartment(codeDepartment) && e.getSalary() < salary) {
+                System.out.println(e.getEmployeeData(printCodeDepartment));
+            }
+        }
+    }
+
+    public void printEmployeesMoreOrEqualSalary(int salary) {
+        printEmployeesMoreOrEqualSalary(salary, 0, true);
+    }
+    public void printEmployeesMoreOrEqualSalary(int salary, int codeDepartment, boolean printCodeDepartment) {
+        for (Employee e : arrEmployee) {
+            if (e.checkCodeDepartment(codeDepartment) && e.getSalary() >= salary) {
+                System.out.println(e.getEmployeeData(printCodeDepartment));
             }
         }
     }

@@ -47,6 +47,7 @@ public class Employee {
         }
         this.salary = salary;
     }
+
     public static int getCurrentSequenceIdValue() {
         return sequenceId;
     }
@@ -73,8 +74,16 @@ public class Employee {
     }
 
     public String toString() {
+        throw new RuntimeException("Employee object can't be printed");
+    }
+
+    public String getEmployeeData() {
+        return getEmployeeData(true);
+    }
+
+    public String getEmployeeData(boolean printCodeDepartment) {
         String result;
-        if (EmployeeBook.isPrintCodeDepartment()) {
+        if (printCodeDepartment) {
             result = String.format("(%s) \"%s\": department code is %s, salary is %s",
                     getId(),
                     getFullName(),
@@ -90,11 +99,4 @@ public class Employee {
         return (codeDepartment == 0 || getCodeDepartment() == codeDepartment);
     }
 
-    public boolean checkSalaryLowerBound(int salaryLowerBound) {
-        return (getSalary() >= salaryLowerBound);
-    }
-
-    public boolean checkSalaryUpperBound(int salaryUpperBound) {
-        return (getSalary() < salaryUpperBound);
-    }
 }
