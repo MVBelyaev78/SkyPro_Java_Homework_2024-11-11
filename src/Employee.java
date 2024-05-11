@@ -73,15 +73,21 @@ public class Employee {
         return Objects.hash(getFullName(), getCodeDepartment(), getSalary());
     }
 
-    public String toString() {
-        throw new RuntimeException("Employee object can't be printed");
+    public void printEmployeeData() {
+        printEmployeeData(0, true);
     }
 
-    public String getEmployeeData() {
-        return getEmployeeData(true);
+    public void printEmployeeData(int codeDepartment, boolean printCodeDepartment) {
+        if (checkCodeDepartment(codeDepartment)) {
+            System.out.println(getEmployeeData(printCodeDepartment));
+        }
     }
 
-    public String getEmployeeData(boolean printCodeDepartment) {
+    public boolean checkCodeDepartment(int codeDepartment) {
+        return (codeDepartment == 0 || getCodeDepartment() == codeDepartment);
+    }
+
+    private String getEmployeeData(boolean printCodeDepartment) {
         String result;
         if (printCodeDepartment) {
             result = String.format("(%s) \"%s\": department code is %s, salary is %s",
@@ -94,9 +100,4 @@ public class Employee {
         }
         return result;
     }
-
-    public boolean checkCodeDepartment(int codeDepartment) {
-        return (codeDepartment == 0 || getCodeDepartment() == codeDepartment);
-    }
-
 }

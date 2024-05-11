@@ -18,15 +18,11 @@ public class EmployeeBook {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        return Arrays.equals(getArrEmployee(), ((EmployeeBook) object).getArrEmployee());
+        return Arrays.equals(arrEmployee, ((EmployeeBook) object).getArrEmployee());
     }
 
     public int hashCode() {
         return Arrays.hashCode(getArrEmployee());
-    }
-
-    public String toString() {
-        throw new RuntimeException("EmployeeBook object can't be printed");
     }
 
     public void printAllEmployees() {
@@ -35,8 +31,8 @@ public class EmployeeBook {
 
     public void printAllEmployees(int codeDepartment, boolean printCodeDepartment) {
         for (Employee e : getArrEmployee()) {
-            if (e.checkCodeDepartment(codeDepartment)) {
-                System.out.println(e.getEmployeeData(printCodeDepartment));
+            if (e != null) {
+                e.printEmployeeData(codeDepartment, printCodeDepartment);
             }
         }
     }
@@ -55,11 +51,11 @@ public class EmployeeBook {
         return result;
     }
 
-    public Employee getLowestPaidEmployee() {
-        return getLowestPaidEmployee(0);
+    public void printLowestPaidEmployee() {
+        printLowestPaidEmployee(0, true);
     }
 
-    public Employee getLowestPaidEmployee(int codeDepartment) {
+    public void printLowestPaidEmployee(int codeDepartment, boolean printCodeDepartment) {
         Employee lowestPaidEmployee = null;
         int currentSalary = 0;
         for (Employee e : getArrEmployee()) {
@@ -69,14 +65,16 @@ public class EmployeeBook {
                 lowestPaidEmployee = e;
             }
         }
-        return lowestPaidEmployee;
+        if (lowestPaidEmployee != null) {
+            lowestPaidEmployee.printEmployeeData(codeDepartment, printCodeDepartment);
+        }
     }
 
-    public Employee getHighestPaidEmployee() {
-        return getHighestPaidEmployee(0);
+    public void printHighestPaidEmployee() {
+        printHighestPaidEmployee(0, true);
     }
 
-    public Employee getHighestPaidEmployee(int codeDepartment) {
+    public void printHighestPaidEmployee(int codeDepartment, boolean printCodeDepartment) {
         Employee highestPaidEmployee = null;
         int currentSalary = 0;
         for (Employee e : getArrEmployee()) {
@@ -86,7 +84,9 @@ public class EmployeeBook {
                 highestPaidEmployee = e;
             }
         }
-        return highestPaidEmployee;
+        if (highestPaidEmployee != null) {
+            highestPaidEmployee.printEmployeeData(codeDepartment, printCodeDepartment);
+        }
     }
 
     public double getAverageSalaries() {
@@ -131,9 +131,9 @@ public class EmployeeBook {
     }
 
     public void printEmployeesLessSalary(int salary, int codeDepartment, boolean printCodeDepartment) {
-        for (Employee e : arrEmployee) {
-            if (e.checkCodeDepartment(codeDepartment) && e.getSalary() < salary) {
-                System.out.println(e.getEmployeeData(printCodeDepartment));
+        for (Employee e : getArrEmployee()) {
+            if (e != null && e.getSalary() < salary) {
+                e.printEmployeeData(codeDepartment, printCodeDepartment);
             }
         }
     }
@@ -141,11 +141,48 @@ public class EmployeeBook {
     public void printEmployeesMoreOrEqualSalary(int salary) {
         printEmployeesMoreOrEqualSalary(salary, 0, true);
     }
+
     public void printEmployeesMoreOrEqualSalary(int salary, int codeDepartment, boolean printCodeDepartment) {
-        for (Employee e : arrEmployee) {
-            if (e.checkCodeDepartment(codeDepartment) && e.getSalary() >= salary) {
-                System.out.println(e.getEmployeeData(printCodeDepartment));
+        for (Employee e : getArrEmployee()) {
+            if (e != null && e.getSalary() >= salary) {
+                e.printEmployeeData(codeDepartment, printCodeDepartment);
             }
         }
     }
+
+    public boolean addNewEmployee(String fullName, int codeDepartment, int salary) {
+        boolean result = false;
+        for (int i = 0; i < arrEmployee.length; i++) {
+            if (arrEmployee[i] == null) {
+                arrEmployee[i] = new Employee(fullName, codeDepartment, salary);
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public boolean deleteEmployee(int id) {
+        boolean result = false;
+        for (int i = 0; i < arrEmployee.length; i++) {
+            if (arrEmployee[i] != null && arrEmployee[i].getId() == id) {
+                arrEmployee[i] = null;
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public Employee selectEmployeeById(int id) {
+        Employee result = null;
+        for (Employee e : getArrEmployee()) {
+            if (e != null && e.getId() == id) {
+                result = e;
+                break;
+            }
+        }
+        return result;
+    }
+
 }

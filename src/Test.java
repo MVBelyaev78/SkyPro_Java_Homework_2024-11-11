@@ -1,6 +1,5 @@
 public class Test {
     public static final int SALARY_BOUND = 4000;
-    public static final int RATE_PERCENT = 13;
 
     public static Employee[] initArrEmployees() {
         Employee[] arrEmployee = new Employee[10];
@@ -15,5 +14,153 @@ public class Test {
         arrEmployee[8] = new Employee("Lucinda Watson", 5, 5000);
         arrEmployee[9] = new Employee("Mick Jones", 5, 1567);
         return arrEmployee;
+    }
+
+    public static void runSuiteAllDepartments01(EmployeeBook employeeBook) {
+        runPrintAllEmployees(employeeBook);
+        runPrintSumSalaries(employeeBook);
+        runPrintLowestPaidEmployee(employeeBook);
+        runPrintHighestPaidEmployee(employeeBook);
+        runPrintAverageSalaries(employeeBook);
+        runPrintFullNamesList(employeeBook);
+        printCurrentSequenceIdValue();
+        runPrintEmployeesLessSalary(employeeBook);
+        runPrintEmployeesMoreOrEqualSalary(employeeBook);
+    }
+
+    public static void runSuiteAllDepartments02(EmployeeBook employeeBook) {
+        runAddNewEmployee(employeeBook, "Gordon Tennison", 3, 5600);
+        runDeleteEmployee(employeeBook, 7);
+        runAddNewEmployee(employeeBook, "Gordon Tennison", 3, 5600);
+        runPrintAllEmployees(employeeBook);
+        runSelectEmployee(employeeBook, 1);
+        runSelectEmployee(employeeBook, 4);
+        runSelectEmployee(employeeBook, 1_000_000);
+    }
+
+    public static void runSuiteConcreteDepartment(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.println("--------------------------------------------------------------\n");
+        Test.runPrintAllEmployees(employeeBook, codeDepartment);
+        Test.runPrintSumSalaries(employeeBook, codeDepartment);
+        Test.runPrintLowestPaidEmployee(employeeBook, codeDepartment);
+        Test.runPrintHighestPaidEmployee(employeeBook, codeDepartment);
+        Test.runPrintAverageSalaries(employeeBook, codeDepartment);
+        Test.runPrintEmployeesLessSalary(employeeBook, codeDepartment);
+        Test.runPrintEmployeesMoreOrEqualSalary(employeeBook, codeDepartment);
+        Test.runIndexSalaries(employeeBook, codeDepartment);
+    }
+
+    public static void runPrintAllEmployees(EmployeeBook employeeBook) {
+        employeeBook.printAllEmployees();
+        System.out.println();
+    }
+
+    public static void runPrintAllEmployees(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.printf("Department code is %s\n\n", codeDepartment);
+        employeeBook.printAllEmployees(codeDepartment, false);
+        System.out.println();
+    }
+
+    public static void runPrintSumSalaries(EmployeeBook employeeBook) {
+        System.out.printf("Salaries sum is %s\n", employeeBook.getSumSalaries());
+    }
+
+    public static void runPrintSumSalaries(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.printf("Salaries sum is %s\n", employeeBook.getSumSalaries(codeDepartment));
+    }
+
+    public static void runPrintLowestPaidEmployee(EmployeeBook employeeBook) {
+        System.out.print("Lowest paid employee is ");
+        employeeBook.printLowestPaidEmployee();
+    }
+
+    public static void runPrintLowestPaidEmployee(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.print("Lowest paid employee is ");
+        employeeBook.printLowestPaidEmployee(codeDepartment, false);
+    }
+
+    public static void runPrintHighestPaidEmployee(EmployeeBook employeeBook) {
+        System.out.print("Highest paid employee is ");
+        employeeBook.printHighestPaidEmployee();
+    }
+
+    public static void runPrintHighestPaidEmployee(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.print("Highest paid employee is ");
+        employeeBook.printHighestPaidEmployee(codeDepartment, false);
+    }
+
+    public static void runPrintAverageSalaries(EmployeeBook employeeBook) {
+        System.out.printf("Average of salaries is %s\n", String.format("%.2f",
+                employeeBook.getAverageSalaries()));
+        System.out.println();
+    }
+
+    public static void runPrintAverageSalaries(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.printf("Average of salaries is %s\n",
+                String.format("%.2f", employeeBook.getAverageSalaries(codeDepartment)));
+        System.out.println();
+    }
+
+    public static void runPrintFullNamesList(EmployeeBook employeeBook) {
+        System.out.println("Full names of all employees:");
+        employeeBook.printFullNamesList();
+        System.out.println();
+    }
+
+    public static void printCurrentSequenceIdValue() {
+        System.out.printf("Current value of sequence of id is %s\n", Employee.getCurrentSequenceIdValue());
+        System.out.println();
+    }
+
+    public static void runPrintEmployeesLessSalary(EmployeeBook employeeBook) {
+        System.out.printf("Employees with salary less than %s\n", SALARY_BOUND);
+        employeeBook.printEmployeesLessSalary(SALARY_BOUND);
+        System.out.println();
+    }
+
+    public static void runPrintEmployeesLessSalary(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.printf("Employees with salary less than %s\n", SALARY_BOUND);
+        employeeBook.printEmployeesLessSalary(SALARY_BOUND, codeDepartment, false);
+        System.out.println();
+    }
+
+    public static void runPrintEmployeesMoreOrEqualSalary(EmployeeBook employeeBook) {
+        System.out.printf("Employees with salary equal or more than %s\n", SALARY_BOUND);
+        employeeBook.printEmployeesMoreOrEqualSalary(SALARY_BOUND);
+        System.out.println();
+    }
+
+    public static void runPrintEmployeesMoreOrEqualSalary(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.printf("Employees with salary equal or more than %s\n", SALARY_BOUND);
+        employeeBook.printEmployeesMoreOrEqualSalary(SALARY_BOUND, codeDepartment, false);
+        System.out.println();
+    }
+
+    public static void runIndexSalaries(EmployeeBook employeeBook, int codeDepartment) {
+        System.out.println("Indexed salaries");
+        employeeBook.indexSalaries(13, codeDepartment);
+        employeeBook.printAllEmployees(codeDepartment, false);
+        System.out.println();
+    }
+
+    public static void runAddNewEmployee(EmployeeBook employeeBook, String fullName, int codeDepartment, int salary) {
+        System.out.printf("Result of adding a new employee: %s\n",
+                employeeBook.addNewEmployee(fullName, codeDepartment, salary) ? "added successfully" : "not added");
+    }
+
+    public static void runDeleteEmployee(EmployeeBook employeeBook, int id) {
+        System.out.printf("Result of deleting an employee: %s\n",
+                employeeBook.deleteEmployee(id) ? "deleted successfully" : "not deleted");
+    }
+
+    public static void runSelectEmployee(EmployeeBook employeeBook, int id) {
+        Employee employee = employeeBook.selectEmployeeById(id);
+        if (employee != null) {
+            System.out.printf("Employee id=%s:\n", id);
+            employee.printEmployeeData();
+        } else {
+            System.out.printf("Employee id=%s doesn't exist\n", id);
+        }
+        System.out.println();
     }
 }
