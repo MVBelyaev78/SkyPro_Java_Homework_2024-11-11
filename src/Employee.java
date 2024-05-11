@@ -8,14 +8,12 @@ public class Employee {
     private final String fullName;
     private int codeDepartment;
     private int salary;
-    private static boolean printCodeDepartment;
 
     public Employee(String fullName, int codeDepartment, int salary) {
         this.id = getNextSequenceIdValue();
         this.fullName = fullName;
         setCodeDepartment(codeDepartment);
         setSalary(salary);
-        selectPrintCodeDepartment();
     }
 
     public int getId() {
@@ -50,18 +48,6 @@ public class Employee {
         this.salary = salary;
     }
 
-    public static boolean isPrintCodeDepartment() {
-        return printCodeDepartment;
-    }
-
-    public static void selectPrintCodeDepartment() {
-        printCodeDepartment = true;
-    }
-
-    public static void unselectPrintCodeDepartment() {
-        printCodeDepartment = false;
-    }
-
     public static int getCurrentSequenceIdValue() {
         return sequenceId;
     }
@@ -88,8 +74,16 @@ public class Employee {
     }
 
     public String toString() {
+        throw new RuntimeException("Object can't be printed");
+    }
+
+    public String getEmployeeData() {
+        return getEmployeeData(true);
+    }
+
+    public String getEmployeeData(boolean printCodeDepartment) {
         String result;
-        if (isPrintCodeDepartment()) {
+        if (printCodeDepartment) {
             result = String.format("(%s) \"%s\": department code is %s, salary is %s",
                     getId(),
                     getFullName(),

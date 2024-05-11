@@ -5,8 +5,8 @@ public class Main {
         printAllEmployees(arrEmployee);
         System.out.println();
         System.out.printf("Salaries sum is %s\n", getSumSalaries(arrEmployee));
-        System.out.printf("Lowest paid employee is %s\n", getLowestPaidEmployee(arrEmployee));
-        System.out.printf("Highest paid employee is %s\n", getHighestPaidEmployee(arrEmployee));
+        System.out.printf("Lowest paid employee is %s\n", getLowestPaidEmployee(arrEmployee).getEmployeeData());
+        System.out.printf("Highest paid employee is %s\n", getHighestPaidEmployee(arrEmployee).getEmployeeData());
         System.out.printf("Average of salaries is %s\n",
                 String.format("%.2f", getAverageSalaries(arrEmployee)));
         System.out.println();
@@ -21,35 +21,35 @@ public class Main {
         System.out.printf("Employees with salary equal or more than %s\n", Test.SALARY_BOUND);
         printEmployeesMoreOrEqualSalary(arrEmployee, Test.SALARY_BOUND);
         System.out.println();
-        Employee.unselectPrintCodeDepartment();
         for (int d = Employee.MIN_CODE_DEPARTMENT; d <= Employee.MAX_CODE_DEPARTMENT; d++) {
             System.out.printf("Department code is %s\n", d);
-            printAllEmployees(arrEmployee, d);
+            printAllEmployees(arrEmployee, d, false);
             System.out.printf("Salaries sum is %s\n", getSumSalaries(arrEmployee, d));
-            System.out.printf("Lowest paid employee is %s\n", getLowestPaidEmployee(arrEmployee, d));
-            System.out.printf("Highest paid employee is %s\n", getHighestPaidEmployee(arrEmployee, d));
+            System.out.printf("Lowest paid employee is %s\n",
+                    getLowestPaidEmployee(arrEmployee, d).getEmployeeData(false));
+            System.out.printf("Highest paid employee is %s\n",
+                    getHighestPaidEmployee(arrEmployee, d).getEmployeeData(false));
             System.out.printf("Average of salaries is %s\n",
                     String.format("%.2f", getAverageSalaries(arrEmployee, d)));
             System.out.printf("Employees with salary less than %s\n", Test.SALARY_BOUND);
-            printEmployeesLessSalary(arrEmployee, Test.SALARY_BOUND, d);
+            printEmployeesLessSalary(arrEmployee, Test.SALARY_BOUND, d, false);
             System.out.printf("Employees with salary equal or more than %s\n", Test.SALARY_BOUND);
-            printEmployeesMoreOrEqualSalary(arrEmployee, Test.SALARY_BOUND, d);
+            printEmployeesMoreOrEqualSalary(arrEmployee, Test.SALARY_BOUND, d, false);
             System.out.println("Indexed salaries");
-            indexSalaries(arrEmployee, 13, d);
-            printAllEmployees(arrEmployee, d);
+            indexSalaries(arrEmployee, Test.RATE_PERCENT, d);
+            printAllEmployees(arrEmployee, d, false);
             System.out.println();
         }
-        Employee.selectPrintCodeDepartment();
     }
 
     public static void printAllEmployees(Employee[] arrEmployee) {
-        printAllEmployees(arrEmployee, 0);
+        printAllEmployees(arrEmployee, 0, true);
     }
 
-    public static void printAllEmployees(Employee[] arrEmployee, int codeDepartment) {
+    public static void printAllEmployees(Employee[] arrEmployee, int codeDepartment, boolean printCodeDepartment) {
         for (Employee e : arrEmployee) {
             if (e.checkCodeDepartment(codeDepartment)) {
-                System.out.println(e);
+                System.out.println(e.getEmployeeData(printCodeDepartment));
             }
         }
     }
@@ -116,10 +116,6 @@ public class Main {
         return countEmployees != 0 ? (double) getSumSalaries(arrEmployee, codeDepartment) / countEmployees : 0d;
     }
 
-    public static void indexSalaries(Employee[] arrEmployee, int ratePercent) {
-        indexSalaries(arrEmployee, ratePercent, 0);
-    }
-
     public static void indexSalaries(Employee[] arrEmployee, int ratePercent, int codeDepartment) {
         if (ratePercent <= 0) {
             throw new IllegalArgumentException("Rate can't be non-positive");
@@ -144,25 +140,25 @@ public class Main {
     }
 
     public static void printEmployeesLessSalary(Employee[] arrEmployee, int salary) {
-        printEmployeesLessSalary(arrEmployee, salary, 0);
+        printEmployeesLessSalary(arrEmployee, salary, 0, true);
     }
 
-    public static void printEmployeesLessSalary(Employee[] arrEmployee, int salary, int codeDepartment) {
+    public static void printEmployeesLessSalary(Employee[] arrEmployee, int salary, int codeDepartment, boolean printCodeDepartment) {
         for (Employee e : arrEmployee) {
             if (e.checkCodeDepartment(codeDepartment) && e.getSalary() < salary) {
-                System.out.println(e);
+                System.out.println(e.getEmployeeData(printCodeDepartment));
             }
         }
     }
 
     public static void printEmployeesMoreOrEqualSalary(Employee[] arrEmployee, int salary) {
-        printEmployeesMoreOrEqualSalary(arrEmployee, salary, 0);
+        printEmployeesMoreOrEqualSalary(arrEmployee, salary, 0, true);
     }
 
-    public static void printEmployeesMoreOrEqualSalary(Employee[] arrEmployee, int salary, int codeDepartment) {
+    public static void printEmployeesMoreOrEqualSalary(Employee[] arrEmployee, int salary, int codeDepartment, boolean printCodeDepartment) {
         for (Employee e : arrEmployee) {
             if (e.checkCodeDepartment(codeDepartment) && e.getSalary() >= salary) {
-                System.out.println(e);
+                System.out.println(e.getEmployeeData(printCodeDepartment));
             }
         }
     }

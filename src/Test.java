@@ -1,5 +1,6 @@
 public class Test {
     public static final int SALARY_BOUND = 4000;
+    public static final int RATE_PERCENT = 13;
 
     public static Employee[] initArrEmployees() {
         Employee[] arrEmployee = new Employee[10];
