@@ -1,19 +1,22 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Test {
     public static final int SALARY_BOUND = 4000;
 
-    public static Employee[] initArrEmployees() {
-        Employee[] arrEmployee = new Employee[10];
-        arrEmployee[0] = Employee.valueOf("Ellen White", 1, 2931);
-        arrEmployee[1] = Employee.valueOf("John Black", 1, 3720);
-        arrEmployee[2] = Employee.valueOf("Susan Brown", 4, 6800);
-        arrEmployee[3] = Employee.valueOf("Larry Hagman", 2, 1250);
-        arrEmployee[4] = Employee.valueOf("Stanley Miller", 4, 3400);
-        arrEmployee[5] = Employee.valueOf("Philipp Roberts", 3, 6220);
-        arrEmployee[6] = Employee.valueOf("Neil Green", 4, 5000);
-        arrEmployee[7] = Employee.valueOf("Anna Williams", 4, 4000);
-        arrEmployee[8] = Employee.valueOf("Lucinda Watson", 5, 5000);
-        arrEmployee[9] = Employee.valueOf("Mick Jones", 5, 1567);
-        return arrEmployee;
+    public static EmployeeBook initArrEmployees() {
+        EmployeeBook employeeBook = new EmployeeBook();
+        employeeBook.add(Employee.valueOf("Ellen White", 1, 2931));
+        employeeBook.add(Employee.valueOf("John Black", 1, 3720));
+        employeeBook.add(Employee.valueOf("Susan Brown", 4, 6800));
+        employeeBook.add(Employee.valueOf("Larry Hagman", 2, 1250));
+        employeeBook.add(Employee.valueOf("Stanley Miller", 4, 3400));
+        employeeBook.add(Employee.valueOf("Philipp Roberts", 3, 6220));
+        employeeBook.add(Employee.valueOf("Neil Green", 4, 5000));
+        employeeBook.add(Employee.valueOf("Anna Williams", 4, 4000));
+        employeeBook.add(Employee.valueOf("Lucinda Watson", 5, 5000));
+        employeeBook.add(Employee.valueOf("Mick Jones", 5, 1567));
+        return employeeBook;
     }
 
     public static void runSuiteAllDepartments01(EmployeeBook employeeBook) {

@@ -1,12 +1,13 @@
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 public class EmployeeBook {
-    private final List<Employee> arrEmployee = new LinkedList<>();
+    private static final int ALL_CODE_DEPARTMENTS = -1;
+    private final List<Employee> arrEmployee;
 
-    private EmployeeBook() {
+    public EmployeeBook() {
+        arrEmployee = new LinkedList<>();
     }
 
     public List<Employee> getArrEmployee() {
@@ -27,169 +28,129 @@ public class EmployeeBook {
         return Objects.hash(getArrEmployee());
     }
 
-    public void addEmployee(Employee employee) {
+    public void add(Employee employee) {
         if (employee != null) {
             arrEmployee.add(employee);
         }
     }
-    /*public void printAllEmployees() {
-        printAllEmployees(0, true);
+
+    public void remove(Employee employee) {
+        arrEmployee.remove(employee);
     }
 
-    public void printAllEmployees(int codeDepartment, boolean printCodeDepartment) {
-        for (Employee e : getArrEmployee()) {
-            if (e != null) {
-                e.printEmployeeData(codeDepartment, printCodeDepartment);
-            }
-        }
-    }*/
+    public List<Employee> getArrEmployeeByDepartment(int codeDepartment) {
+        return arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .toList();
+    }
 
     public int getSumSalaries() {
         return getSumSalaries(0);
     }
 
     public int getSumSalaries(int codeDepartment) {
-        int result = 0;
-        for (Employee e : getArrEmployee()) {
-            if (e.checkCodeDepartment(codeDepartment)) {
-                result += e.getSalary();
+        return arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment ||
+                        codeDepartment == ALL_CODE_DEPARTMENTS)
+                .mapToInt(Employee::getSalary)
+                .sum();
+    }
+
+    public Employee getLowestPaidEmployee() {
+        return getLowestPaidEmployee(ALL_CODE_DEPARTMENTS);
+    }
+
+    public Employee getLowestPaidEmployee(int codeDepartment) {
+        Employee result = null;
+        for (Employee e : arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .toList()) {
+            if (result == null || e.getSalary() < result.getSalary()) {
+                result = e;
             }
-        }*/
+        }
         return result;
     }
 
-    /*public void printLowestPaidEmployee() {
-        printLowestPaidEmployee(0, true);
+    public Employee getHighestPaidEmployee() {
+        return getHighestPaidEmployee(ALL_CODE_DEPARTMENTS);
     }
 
-    public void printLowestPaidEmployee(int codeDepartment, boolean printCodeDepartment) {
-        Employee lowestPaidEmployee = null;
-        int currentSalary = 0;
-        for (Employee e : getArrEmployee()) {
-            if (e.checkCodeDepartment(codeDepartment) &&
-                    (lowestPaidEmployee == null || e.getSalary() < currentSalary)) {
-                currentSalary = e.getSalary();
-                lowestPaidEmployee = e;
+    public Employee getHighestPaidEmployee(int codeDepartment) {
+        Employee result = null;
+        for (Employee e : arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .toList()) {
+            if (result == null || e.getSalary() > result.getSalary()) {
+                result = e;
             }
         }
-        if (lowestPaidEmployee != null) {
-            lowestPaidEmployee.printEmployeeData(codeDepartment, printCodeDepartment);
-        }
+        return result;
     }
-
-    public void printHighestPaidEmployee() {
-        printHighestPaidEmployee(0, true);
-    }
-
-    public void printHighestPaidEmployee(int codeDepartment, boolean printCodeDepartment) {
-        Employee highestPaidEmployee = null;
-        int currentSalary = 0;
-        for (Employee e : getArrEmployee()) {
-            if (e.checkCodeDepartment(codeDepartment) &&
-                    (highestPaidEmployee == null || e.getSalary() > currentSalary)) {
-                currentSalary = e.getSalary();
-                highestPaidEmployee = e;
-            }
-        }
-        if (highestPaidEmployee != null) {
-            highestPaidEmployee.printEmployeeData(codeDepartment, printCodeDepartment);
-        }
-    }*/
 
     public double getAverageSalaries() {
-        return getAverageSalaries(0);
+        return getAverageSalaries(ALL_CODE_DEPARTMENTS);
     }
 
     public double getAverageSalaries(int codeDepartment) {
-        int countEmployees = 0;
-        for (Employee e : getArrEmployee()) {
-            if (e.checkCodeDepartment(codeDepartment)) {
-                countEmployees++;
-            }
-        }
-        return countEmployees != 0 ? (double) getSumSalaries(codeDepartment) / countEmployees : 0d;
+        return arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .mapToInt(Employee::getSalary)
+                .average()
+                .getAsDouble();
     }
 
     public void indexSalaries(int ratePercent, int codeDepartment) {
         if (ratePercent <= 0) {
             throw new IllegalArgumentException("Rate can't be non-positive");
         }
-        for (Employee e : getArrEmployee()) {
-            if (e.checkCodeDepartment(codeDepartment)) {
-                e.setSalary((int) Math.ceil(e.getSalary() * (1d + ratePercent / 100d)));
-            }
+        for (Employee e : arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .toList()) {
+            e.setSalary((int) Math.ceil(e.getSalary() * (1d + ratePercent / 100d)));
         }
     }
 
-    /*public void printFullNamesList() {
-        printFullNamesList(0);
+    public List<Employee> getEmployeeBookLessSalary(int salary) {
+        return getEmployeeBookLessSalary(salary, ALL_CODE_DEPARTMENTS);
     }
 
-    public void printFullNamesList(int codeDepartment) {
-        for (Employee e : getArrEmployee()) {
-            if (e.checkCodeDepartment(codeDepartment)) {
-                System.out.println(e.getFullName());
-            }
-        }
+    public List<Employee> getEmployeeBookLessSalary(int salary, int codeDepartment) {
+        return arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .filter(e -> e.getSalary() < salary)
+                .toList();
     }
 
-    public void printEmployeesLessSalary(int salary) {
-        printEmployeesLessSalary(salary, 0, true);
+    public List<Employee> getEmployeeBookMoreOrEqualSalary(int salary) {
+        return getEmployeeBookMoreOrEqualSalary(salary, ALL_CODE_DEPARTMENTS);
     }
 
-    public void printEmployeesLessSalary(int salary, int codeDepartment, boolean printCodeDepartment) {
-        for (Employee e : getArrEmployee()) {
-            if (e != null && e.getSalary() < salary) {
-                e.printEmployeeData(codeDepartment, printCodeDepartment);
-            }
-        }
+    public List<Employee> getEmployeeBookMoreOrEqualSalary(int salary, int codeDepartment) {
+        return arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .filter(e -> e.getSalary() >= salary)
+                .toList();
     }
-
-    public void printEmployeesMoreOrEqualSalary(int salary) {
-        printEmployeesMoreOrEqualSalary(salary, 0, true);
-    }
-
-    public void printEmployeesMoreOrEqualSalary(int salary, int codeDepartment, boolean printCodeDepartment) {
-        for (Employee e : getArrEmployee()) {
-            if (e != null && e.getSalary() >= salary) {
-                e.printEmployeeData(codeDepartment, printCodeDepartment);
-            }
-        }
-    }*/
 
     public boolean addNewEmployee(String fullName, int codeDepartment, int salary) {
-        boolean result = false;
-        for (int i = 0; i < arrEmployee.length; i++) {
-            if (arrEmployee[i] == null) {
-                arrEmployee[i] = Employee.valueOf(fullName, codeDepartment, salary);
-                result = true;
-                break;
-            }
-        }
-        return result;
+        arrEmployee.add(Employee.valueOf(fullName, codeDepartment, salary));
+        return true;
     }
 
-    public boolean deleteEmployee(int id) {
-        boolean result = false;
-        for (int i = 0; i < arrEmployee.length; i++) {
-            if (arrEmployee[i] != null && arrEmployee[i].getId() == id) {
-                arrEmployee[i] = null;
-                result = true;
-                break;
-            }
-        }
-        return result;
+    public boolean removeEmployee(int id) {
+        return arrEmployee.remove(arrEmployee.stream().filter(e -> e.getId() == id));
     }
 
     public Employee findEmployeeById(int id) {
-        Employee result = null;
-        for (Employee e : getArrEmployee()) {
-            if (e != null && e.getId() == id) {
-                result = e;
-                break;
-            }
-        }
-        return result;
+        return arrEmployee.stream().filter(e -> e.getId() == id).toList().getFirst();
     }
-
 }
