@@ -1,13 +1,14 @@
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.stream.Stream;
+import java.util.OptionalInt;
+import java.util.OptionalDouble;
 
 public class EmployeeBook {
-    private static final int ALL_CODE_DEPARTMENTS = -1;
-    private final List<Employee> arrEmployee;
+    private final List<Employee> arrEmployee = new LinkedList<>();
 
     public EmployeeBook() {
-        arrEmployee = new LinkedList<>();
     }
 
     public List<Employee> getArrEmployee() {
@@ -25,132 +26,188 @@ public class EmployeeBook {
     }
 
     public int hashCode() {
-        return Objects.hash(getArrEmployee());
+        return Objects.hash(arrEmployee);
     }
 
-    public void add(Employee employee) {
+    public boolean add(Employee employee) {
+        boolean result = false;
         if (employee != null) {
             arrEmployee.add(employee);
+            return true;
         }
+        return result;
     }
 
-    public void remove(Employee employee) {
-        arrEmployee.remove(employee);
+    public boolean remove(int id) {
+        final int sizeBefore = arrEmployee.size();
+        arrEmployee.removeAll(arrEmployee.stream().filter(e -> e.getId() == id).toList());
+        return sizeBefore > arrEmployee.size();
     }
 
-    public List<Employee> getArrEmployeeByDepartment(int codeDepartment) {
+    public List<Employee> getEmployeeList() {
+        return arrEmployee;
+    }
+
+    public List<Employee> getEmployeeList(int codeDepartment) {
         return arrEmployee
                 .stream()
-                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .filter(e -> e.getCodeDepartment() == codeDepartment)
                 .toList();
     }
 
     public int getSumSalaries() {
-        return getSumSalaries(0);
+        return arrEmployee
+                .stream()
+                .mapToInt(Employee::getSalary)
+                .sum();
     }
 
     public int getSumSalaries(int codeDepartment) {
         return arrEmployee
                 .stream()
-                .filter(e -> e.getCodeDepartment() == codeDepartment ||
-                        codeDepartment == ALL_CODE_DEPARTMENTS)
+                .filter(e -> e.getCodeDepartment() == codeDepartment)
                 .mapToInt(Employee::getSalary)
                 .sum();
     }
 
-    public Employee getLowestPaidEmployee() {
-        return getLowestPaidEmployee(ALL_CODE_DEPARTMENTS);
-    }
-
-    public Employee getLowestPaidEmployee(int codeDepartment) {
-        Employee result = null;
-        for (Employee e : arrEmployee
+    public List<Employee> getLowestPaidEmployee() {
+        List<Employee> result = new LinkedList<>();
+        final OptionalInt resultOptional = arrEmployee
                 .stream()
-                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
-                .toList()) {
-            if (result == null || e.getSalary() < result.getSalary()) {
-                result = e;
-            }
+                .mapToInt(Employee::getSalary)
+                .min();
+        if (resultOptional.isPresent()) {
+            result = arrEmployee
+                    .stream()
+                    .filter(e -> e.getSalary() == resultOptional.getAsInt())
+                    .toList();
         }
         return result;
     }
 
-    public Employee getHighestPaidEmployee() {
-        return getHighestPaidEmployee(ALL_CODE_DEPARTMENTS);
+    public List<Employee> getLowestPaidEmployee(int codeDepartment) {
+        List<Employee> result = new LinkedList<>();
+        final OptionalInt resultOptional = arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment)
+                .mapToInt(Employee::getSalary)
+                .min();
+        if (resultOptional.isPresent()) {
+            result = arrEmployee
+                    .stream()
+                    .filter(e -> e.getCodeDepartment() == codeDepartment)
+                    .filter(e -> e.getSalary() == resultOptional.getAsInt())
+                    .toList();
+        }
+        return result;
     }
 
-    public Employee getHighestPaidEmployee(int codeDepartment) {
-        Employee result = null;
-        for (Employee e : arrEmployee
+    public List<Employee> getHighestPaidEmployee() {
+        List<Employee> result = new LinkedList<>();
+        final OptionalInt resultOptional = arrEmployee
                 .stream()
-                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
-                .toList()) {
-            if (result == null || e.getSalary() > result.getSalary()) {
-                result = e;
-            }
+                .mapToInt(Employee::getSalary)
+                .max();
+        if (resultOptional.isPresent()) {
+            result = arrEmployee
+                    .stream()
+                    .filter(e -> e.getSalary() == resultOptional.getAsInt())
+                    .toList();
+        }
+        return result;
+    }
+
+    public List<Employee> getHighestPaidEmployee(int codeDepartment) {
+        List<Employee> result = new LinkedList<>();
+        final OptionalInt resultOptional = arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment)
+                .mapToInt(Employee::getSalary)
+                .max();
+        if (resultOptional.isPresent()) {
+            result = arrEmployee
+                    .stream()
+                    .filter(e -> e.getCodeDepartment() == codeDepartment)
+                    .filter(e -> e.getSalary() == resultOptional.getAsInt())
+                    .toList();
         }
         return result;
     }
 
     public double getAverageSalaries() {
-        return getAverageSalaries(ALL_CODE_DEPARTMENTS);
+        double result = 0;
+        OptionalDouble resultOptional = arrEmployee
+                .stream()
+                .mapToDouble(Employee::getSalary)
+                .average();
+        if (resultOptional.isPresent()) {
+            result = resultOptional.getAsDouble();
+        }
+        return result;
     }
 
     public double getAverageSalaries(int codeDepartment) {
+        double result = 0;
+        OptionalDouble resultOptional = arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment)
+                .mapToDouble(Employee::getSalary)
+                .average();
+        if (resultOptional.isPresent()) {
+            result = resultOptional.getAsDouble();
+        }
+        return result;
+    }
+
+    public List<String> getEmployeeFullNames() {
         return arrEmployee
                 .stream()
-                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
-                .mapToInt(Employee::getSalary)
-                .average()
-                .getAsDouble();
+                .map(Employee::getFullName)
+                .toList();
     }
 
     public void indexSalaries(int ratePercent, int codeDepartment) {
         if (ratePercent <= 0) {
             throw new IllegalArgumentException("Rate can't be non-positive");
         }
-        for (Employee e : arrEmployee
+        arrEmployee
                 .stream()
-                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
-                .toList()) {
-            e.setSalary((int) Math.ceil(e.getSalary() * (1d + ratePercent / 100d)));
-        }
+                .filter(e -> e.getCodeDepartment() == codeDepartment)
+                .forEach(e -> e.indexSalary(codeDepartment));
     }
 
-    public List<Employee> getEmployeeBookLessSalary(int salary) {
-        return getEmployeeBookLessSalary(salary, ALL_CODE_DEPARTMENTS);
-    }
-
-    public List<Employee> getEmployeeBookLessSalary(int salary, int codeDepartment) {
+    public List<Employee> getEmployeeLessSalary(int salary) {
         return arrEmployee
                 .stream()
-                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
                 .filter(e -> e.getSalary() < salary)
                 .toList();
     }
 
-    public List<Employee> getEmployeeBookMoreOrEqualSalary(int salary) {
-        return getEmployeeBookMoreOrEqualSalary(salary, ALL_CODE_DEPARTMENTS);
-    }
-
-    public List<Employee> getEmployeeBookMoreOrEqualSalary(int salary, int codeDepartment) {
+    public List<Employee> getEmployeeLessSalary(int salary, int codeDepartment) {
         return arrEmployee
                 .stream()
-                .filter(e -> e.getCodeDepartment() == codeDepartment || codeDepartment == ALL_CODE_DEPARTMENTS)
+                .filter(e -> e.getCodeDepartment() == codeDepartment && e.getSalary() < salary)
+                .toList();
+    }
+
+    public List<Employee> getEmployeeMoreOrEqualSalary(int salary) {
+        return arrEmployee
+                .stream()
                 .filter(e -> e.getSalary() >= salary)
                 .toList();
     }
 
-    public boolean addNewEmployee(String fullName, int codeDepartment, int salary) {
-        arrEmployee.add(Employee.valueOf(fullName, codeDepartment, salary));
-        return true;
+    public List<Employee> getEmployeeMoreOrEqualSalary(int salary, int codeDepartment) {
+        return arrEmployee
+                .stream()
+                .filter(e -> e.getCodeDepartment() == codeDepartment && e.getSalary() >= salary)
+                .toList();
     }
 
-    public boolean removeEmployee(int id) {
-        return arrEmployee.remove(arrEmployee.stream().filter(e -> e.getId() == id));
-    }
-
-    public Employee findEmployeeById(int id) {
-        return arrEmployee.stream().filter(e -> e.getId() == id).toList().getFirst();
+    public List<Employee> findEmployeeById(int id) {
+        return arrEmployee
+                .stream()
+                .filter(e -> e.getId() == id)
+                .toList();
     }
 }
