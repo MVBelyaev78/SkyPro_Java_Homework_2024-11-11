@@ -24,9 +24,11 @@ public class Test {
     public static void runSuiteAllDepartments01(EmployeeBook employeeBook) {
         runPrintAllEmployees(employeeBook);
         runPrintSumSalaries(employeeBook);
+        runPrintAverageSalaries(employeeBook);
+        System.out.println();
         runPrintLowestPaidEmployee(employeeBook);
         runPrintHighestPaidEmployee(employeeBook);
-        runPrintAverageSalaries(employeeBook);
+        System.out.println();
         runPrintFullNamesList(employeeBook);
         printCurrentSequenceIdValue();
         runPrintEmployeesLessSalary(employeeBook);
@@ -34,11 +36,13 @@ public class Test {
     }
 
     public static void runSuiteAllDepartments02(EmployeeBook employeeBook) {
+        System.out.println();
         runAddEmployee(employeeBook, "Gordon Tennison", 2, 3900);
         runAddEmployee(employeeBook, "Stewart Olson", 3, 5600);
         runRemoveEmployee(employeeBook, 3);
         runRemoveEmployee(employeeBook, 7);
         runRemoveEmployee(employeeBook, 666);
+        System.out.println();
         runPrintAllEmployees(employeeBook);
         runFindEmployee(employeeBook, 1);
         runFindEmployee(employeeBook, 4);
@@ -49,9 +53,9 @@ public class Test {
         System.out.println("--------------------------------------------------------------\n");
         Test.runPrintAllEmployees(employeeBook, codeDepartment);
         Test.runPrintSumSalaries(employeeBook, codeDepartment);
+        Test.runPrintAverageSalaries(employeeBook, codeDepartment);
         Test.runPrintLowestPaidEmployee(employeeBook, codeDepartment);
         Test.runPrintHighestPaidEmployee(employeeBook, codeDepartment);
-        Test.runPrintAverageSalaries(employeeBook, codeDepartment);
         Test.runPrintEmployeesLessSalary(employeeBook, codeDepartment);
         Test.runPrintEmployeesMoreOrEqualSalary(employeeBook, codeDepartment);
         Test.runIndexSalaries(employeeBook, codeDepartment);
@@ -75,12 +79,15 @@ public class Test {
 
     private static void runPrintSumSalaries(EmployeeBook employeeBook) {
         System.out.printf("Salaries sum is %s\n", employeeBook.getSumSalaries());
-        System.out.println();
     }
 
     private static void runPrintSumSalaries(EmployeeBook employeeBook, int codeDepartment) {
         System.out.printf("Salaries sum is %s\n", employeeBook.getSumSalaries(codeDepartment));
-        System.out.println();
+    }
+
+    private static void runPrintAverageSalaries(EmployeeBook employeeBook) {
+        System.out.printf("Average of salaries is %s\n", String.format("%.2f",
+                employeeBook.getAverageSalaries()));
     }
 
     private static void runPrintLowestPaidEmployee(EmployeeBook employeeBook) {
@@ -104,7 +111,6 @@ public class Test {
         employeeBook
                 .getHighestPaidEmployee()
                 .forEach(e -> System.out.println(e.getFullEmployeeData()));
-        System.out.println();
     }
 
     private static void runPrintHighestPaidEmployee(EmployeeBook employeeBook, int codeDepartment) {
@@ -115,12 +121,6 @@ public class Test {
         System.out.println();
     }
 
-    private static void runPrintAverageSalaries(EmployeeBook employeeBook) {
-        System.out.printf("Average of salaries is %s\n", String.format("%.2f",
-                employeeBook.getAverageSalaries()));
-        System.out.println();
-    }
-
     private static void runPrintAverageSalaries(EmployeeBook employeeBook, int codeDepartment) {
         System.out.printf("Average of salaries is %s\n",
                 String.format("%.2f", employeeBook.getAverageSalaries(codeDepartment)));
@@ -128,7 +128,7 @@ public class Test {
     }
 
     private static void runPrintFullNamesList(EmployeeBook employeeBook) {
-        System.out.println("Full names of all employees:");
+        System.out.println("Full names of all employees");
         employeeBook
                 .getEmployeeFullNames()
                 .forEach(System.out::println);

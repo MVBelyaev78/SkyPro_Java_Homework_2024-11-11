@@ -1,7 +1,6 @@
 import java.util.Objects;
 import java.util.List;
 import java.util.LinkedList;
-import java.util.stream.Stream;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
 
@@ -95,8 +94,8 @@ public class EmployeeBook {
         if (resultOptional.isPresent()) {
             result = arrEmployee
                     .stream()
-                    .filter(e -> e.getCodeDepartment() == codeDepartment)
-                    .filter(e -> e.getSalary() == resultOptional.getAsInt())
+                    .filter(e -> e.getCodeDepartment() == codeDepartment
+                            && e.getSalary() == resultOptional.getAsInt())
                     .toList();
         }
         return result;
@@ -127,8 +126,8 @@ public class EmployeeBook {
         if (resultOptional.isPresent()) {
             result = arrEmployee
                     .stream()
-                    .filter(e -> e.getCodeDepartment() == codeDepartment)
-                    .filter(e -> e.getSalary() == resultOptional.getAsInt())
+                    .filter(e -> e.getCodeDepartment() == codeDepartment
+                            && e.getSalary() == resultOptional.getAsInt())
                     .toList();
         }
         return result;
