@@ -109,7 +109,7 @@ public class EmployeeBook {
         }
         for (Employee e : getArrEmployee()) {
             if (e.checkCodeDepartment(codeDepartment)) {
-                e.setSalary(Math.round(e.getSalary() * (1f + ratePercent / 100f)));
+                e.setSalary((int) Math.ceil(e.getSalary() * (1d + ratePercent / 100d)));
             }
         }
     }
@@ -154,7 +154,7 @@ public class EmployeeBook {
         boolean result = false;
         for (int i = 0; i < arrEmployee.length; i++) {
             if (arrEmployee[i] == null) {
-                arrEmployee[i] = new Employee(fullName, codeDepartment, salary);
+                arrEmployee[i] = Employee.valueOf(fullName, codeDepartment, salary);
                 result = true;
                 break;
             }
@@ -174,7 +174,7 @@ public class EmployeeBook {
         return result;
     }
 
-    public Employee selectEmployeeById(int id) {
+    public Employee findEmployeeById(int id) {
         Employee result = null;
         for (Employee e : getArrEmployee()) {
             if (e != null && e.getId() == id) {

@@ -4,18 +4,20 @@ public class Employee {
     private static int sequenceId = 1;
     public static final int MIN_CODE_DEPARTMENT = 1;
     public static final int MAX_CODE_DEPARTMENT = 5;
+    public static Employee valueOf(String fullName, int codeDepartment, int salary) throws IllegalArgumentException {
+        Employee employee = new Employee(fullName);
+        employee.setCodeDepartment(codeDepartment);
+        employee.setSalary(salary);
+        return employee;
+    }
+    private Employee(String fullName) {
+        this.id = sequenceId++;
+        this.fullName = fullName;
+    }
     private final int id;
     private final String fullName;
     private int codeDepartment;
     private int salary;
-
-    public Employee(String fullName, int codeDepartment, int salary) {
-        this.id = getNextSequenceIdValue();
-        this.fullName = fullName;
-        setCodeDepartment(codeDepartment);
-        setSalary(salary);
-    }
-
     public int getId() {
         return id;
     }
@@ -52,10 +54,6 @@ public class Employee {
         return sequenceId;
     }
 
-    public static int getNextSequenceIdValue() {
-        return sequenceId++;
-    }
-
     public boolean equals(Object object) {
         if (this == object) {
             return true;
@@ -64,13 +62,14 @@ public class Employee {
             return false;
         }
         final Employee that = (Employee) object;
-        return getFullName().equals(that.getFullName()) &&
+        return getId() == that.getId() &&
+                getFullName().equals(that.getFullName()) &&
                 getCodeDepartment() == that.getCodeDepartment() &&
                 getSalary() == that.getSalary();
     }
 
     public int hashCode() {
-        return Objects.hash(getFullName(), getCodeDepartment(), getSalary());
+        return Objects.hash(getId(), getFullName(), getCodeDepartment(), getSalary());
     }
 
     public void printEmployeeData() {
