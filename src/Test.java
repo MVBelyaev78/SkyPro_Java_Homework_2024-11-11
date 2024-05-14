@@ -183,7 +183,7 @@ public class Test {
 
     private static void runAddEmployee(EmployeeBook employeeBook, String fullName, int codeDepartment, int salary) {
         System.out.printf("Result of adding a new employee: %s\n",
-                employeeBook.add(Employee.valueOf(fullName, codeDepartment, salary))
+                addNewEmployee(employeeBook, fullName, codeDepartment, salary)
                         ? "added successfully"
                         : "not added");
     }
@@ -204,8 +204,7 @@ public class Test {
         System.out.println();
     }
 
-    private static void addNewEmployee(EmployeeBook employeeBook, String fullName, int codeDepartment, int salary)
-            throws IllegalArgumentException {
-        employeeBook.add(Employee.valueOf(fullName, codeDepartment, salary));
+    private static boolean addNewEmployee(EmployeeBook employeeBook, String fullName, int codeDepartment, int salary) {
+        return employeeBook.add(Employee.valueOf(fullName, codeDepartment, salary));
     }
 }
