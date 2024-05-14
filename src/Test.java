@@ -3,21 +3,21 @@ public class Test {
 
     public static EmployeeBook initArrEmployees() {
         EmployeeBook employeeBook = new EmployeeBook();
-        employeeBook.add(Employee.valueOf("Ellen White", 1, 2931));
-        employeeBook.add(Employee.valueOf("John Black", 1, 3720));
-        employeeBook.add(Employee.valueOf("John Silver", 1, 3720));
-        employeeBook.add(Employee.valueOf("Thomas Johnson", 1, 2500));
-        employeeBook.add(Employee.valueOf("Sarah Fill", 1, 2000));
-        employeeBook.add(Employee.valueOf("Gordon Lloyd", 1, 2000));
-        employeeBook.add(Employee.valueOf("Susan Brown", 2, 6800));
-        employeeBook.add(Employee.valueOf("Larry Hagman", 2, 1250));
-        employeeBook.add(Employee.valueOf("Stanley Miller", 4, 3400));
-        employeeBook.add(Employee.valueOf("Philipp Roberts", 3, 6800));
-        employeeBook.add(Employee.valueOf("Neil Green", 4, 5000));
-        employeeBook.add(Employee.valueOf("Anna Williams", 4, 4000));
-        employeeBook.add(Employee.valueOf("Lucinda Watson", 5, 5000));
-        employeeBook.add(Employee.valueOf("Mick Jones", 5, 2300));
-        employeeBook.add(Employee.valueOf("Steve Romney", 5, 1250));
+        addNewEmployee(employeeBook, "Ellen White", 1, 2931);
+        addNewEmployee(employeeBook, "John Black", 1, 3720);
+        addNewEmployee(employeeBook, "John Silver", 1, 3720);
+        addNewEmployee(employeeBook, "Thomas Johnson", 1, 2500);
+        addNewEmployee(employeeBook, "Sarah Fill", 1, 2000);
+        addNewEmployee(employeeBook, "Gordon Lloyd", 1, 2000);
+        addNewEmployee(employeeBook, "Susan Brown", 2, 6800);
+        addNewEmployee(employeeBook, "Larry Hagman", 2, 1250);
+        addNewEmployee(employeeBook, "Stanley Miller", 4, 3400);
+        addNewEmployee(employeeBook, "Philipp Roberts", 3, 6800);
+        addNewEmployee(employeeBook, "Neil Green", 4, 5000);
+        addNewEmployee(employeeBook, "Anna Williams", 4, 4000);
+        addNewEmployee(employeeBook, "Lucinda Watson", 5, 5000);
+        addNewEmployee(employeeBook, "Mick Jones", 5, 2300);
+        addNewEmployee(employeeBook, "Steve Romney", 5, 1250);
         return employeeBook;
     }
 
@@ -202,5 +202,10 @@ public class Test {
                 .findEmployeeById(id)
                 .forEach(e -> System.out.println(e.getFullEmployeeData()));
         System.out.println();
+    }
+
+    private static void addNewEmployee(EmployeeBook employeeBook, String fullName, int codeDepartment, int salary)
+            throws IllegalArgumentException {
+        employeeBook.add(Employee.valueOf(fullName, codeDepartment, salary));
     }
 }
