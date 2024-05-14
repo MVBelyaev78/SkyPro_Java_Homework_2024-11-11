@@ -1,6 +1,7 @@
 import java.util.Objects;
 
 public class Employee {
+    public static final int ALL_CODE_DEPARTMENTS = -1;
     private static int sequenceId = 1;
     public static final int MIN_CODE_DEPARTMENT = 1;
     public static final int MAX_CODE_DEPARTMENT = 5;
@@ -62,18 +63,18 @@ public class Employee {
             return false;
         }
         final Employee that = (Employee) object;
-        return getId() == that.getId() &&
-                getFullName().equals(that.getFullName()) &&
-                getCodeDepartment() == that.getCodeDepartment() &&
-                getSalary() == that.getSalary();
+        return id == that.getId() &&
+                fullName.equals(that.getFullName()) &&
+                codeDepartment == that.getCodeDepartment() &&
+                salary == that.getSalary();
     }
 
     public int hashCode() {
-        return Objects.hash(getId(), getFullName(), getCodeDepartment(), getSalary());
+        return Objects.hash(id, fullName, codeDepartment, salary);
     }
 
-    public void printEmployeeData() {
-        printEmployeeData(0, true);
+    /*public void printEmployeeData() {
+        printEmployeeData(ALL_CODE_DEPARTMENTS, true);
     }
 
     public void printEmployeeData(int codeDepartment, boolean printCodeDepartment) {
@@ -83,19 +84,19 @@ public class Employee {
     }
 
     public boolean checkCodeDepartment(int codeDepartment) {
-        return (codeDepartment == 0 || getCodeDepartment() == codeDepartment);
-    }
+        return (codeDepartment == ALL_CODE_DEPARTMENTS || codeDepartment == codeDepartment);
+    }*/
 
-    private String getEmployeeData(boolean printCodeDepartment) {
+    public String getEmployeeData(boolean printCodeDepartment) {
         String result;
         if (printCodeDepartment) {
             result = String.format("(%s) \"%s\": department code is %s, salary is %s",
-                    getId(),
-                    getFullName(),
-                    getCodeDepartment(),
-                    getSalary());
+                    id,
+                    fullName,
+                    codeDepartment,
+                    salary);
         } else {
-            result = String.format("(%s) \"%s\": salary is %s", getId(), getFullName(), getSalary());
+            result = String.format("(%s) \"%s\": salary is %s", id, fullName, salary);
         }
         return result;
     }

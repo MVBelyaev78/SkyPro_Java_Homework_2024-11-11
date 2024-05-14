@@ -1,13 +1,15 @@
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 public class EmployeeBook {
-    private final Employee[] arrEmployee;
+    private final List<Employee> arrEmployee = new LinkedList<>();
 
-    public EmployeeBook(Employee[] arrEmployee) {
-        this.arrEmployee = arrEmployee.clone();
+    private EmployeeBook() {
     }
 
-    public Employee[] getArrEmployee() {
+    public List<Employee> getArrEmployee() {
         return arrEmployee;
     }
 
@@ -18,14 +20,19 @@ public class EmployeeBook {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        return Arrays.equals(arrEmployee, ((EmployeeBook) object).getArrEmployee());
+        return arrEmployee.equals(((EmployeeBook) object).getArrEmployee());
     }
 
     public int hashCode() {
-        return Arrays.hashCode(getArrEmployee());
+        return Objects.hash(getArrEmployee());
     }
 
-    public void printAllEmployees() {
+    public void addEmployee(Employee employee) {
+        if (employee != null) {
+            arrEmployee.add(employee);
+        }
+    }
+    /*public void printAllEmployees() {
         printAllEmployees(0, true);
     }
 
@@ -35,7 +42,7 @@ public class EmployeeBook {
                 e.printEmployeeData(codeDepartment, printCodeDepartment);
             }
         }
-    }
+    }*/
 
     public int getSumSalaries() {
         return getSumSalaries(0);
@@ -47,11 +54,11 @@ public class EmployeeBook {
             if (e.checkCodeDepartment(codeDepartment)) {
                 result += e.getSalary();
             }
-        }
+        }*/
         return result;
     }
 
-    public void printLowestPaidEmployee() {
+    /*public void printLowestPaidEmployee() {
         printLowestPaidEmployee(0, true);
     }
 
@@ -87,7 +94,7 @@ public class EmployeeBook {
         if (highestPaidEmployee != null) {
             highestPaidEmployee.printEmployeeData(codeDepartment, printCodeDepartment);
         }
-    }
+    }*/
 
     public double getAverageSalaries() {
         return getAverageSalaries(0);
@@ -114,7 +121,7 @@ public class EmployeeBook {
         }
     }
 
-    public void printFullNamesList() {
+    /*public void printFullNamesList() {
         printFullNamesList(0);
     }
 
@@ -148,7 +155,7 @@ public class EmployeeBook {
                 e.printEmployeeData(codeDepartment, printCodeDepartment);
             }
         }
-    }
+    }*/
 
     public boolean addNewEmployee(String fullName, int codeDepartment, int salary) {
         boolean result = false;
