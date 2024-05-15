@@ -23,7 +23,7 @@ public class EmployeeBook {
         }
         return arrEmployee
                 .equals(((EmployeeBook) object)
-                .getArrEmployee());
+                        .getArrEmployee());
     }
 
     public int hashCode() {
