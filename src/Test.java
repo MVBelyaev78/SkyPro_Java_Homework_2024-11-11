@@ -23,11 +23,7 @@ public class Test {
         addNewEmployee("Steve Romney", 5, 1250);
     }
 
-    private boolean addNewEmployee(String fullName, int codeDepartment, int salary) {
-        return employeeBook.add(Employee.valueOf(fullName, codeDepartment, salary));
-    }
-
-    public void runSuiteAllDepartments01() {
+    public void runSuite01() {
         runPrintAllEmployees();
         runPrintSumSalaries();
         runPrintAverageSalaries();
@@ -41,7 +37,13 @@ public class Test {
         runPrintEmployeesMoreOrEqualSalary();
     }
 
-    public void runSuiteAllDepartments02() {
+    public void runSuite02() {
+        for (int d = Employee.MIN_CODE_DEPARTMENT; d <= Employee.MAX_CODE_DEPARTMENT; d++) {
+            runSuiteConcreteDepartment(d);
+        }
+    }
+
+    public void runSuite03() {
         System.out.println();
         runAddEmployee("Gordon Tennison", 2, 3900);
         runAddEmployee("Stewart Olson", 3, 5600);
@@ -55,7 +57,7 @@ public class Test {
         runFindEmployee(1_000_000);
     }
 
-    public void runSuiteConcreteDepartment(int codeDepartment) {
+    private void runSuiteConcreteDepartment(int codeDepartment) {
         System.out.println("--------------------------------------------------------------\n");
         runPrintAllEmployees(codeDepartment);
         runPrintSumSalaries(codeDepartment);
@@ -208,5 +210,9 @@ public class Test {
                 .findEmployeeById(id)
                 .forEach(e -> System.out.println(e.getFullEmployeeData()));
         System.out.println();
+    }
+
+    private boolean addNewEmployee(String fullName, int codeDepartment, int salary) {
+        return employeeBook.add(Employee.valueOf(fullName, codeDepartment, salary));
     }
 }
