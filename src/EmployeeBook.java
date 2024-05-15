@@ -21,7 +21,9 @@ public class EmployeeBook {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        return arrEmployee.equals(((EmployeeBook) object).getArrEmployee());
+        return arrEmployee
+                .equals(((EmployeeBook) object)
+                .getArrEmployee());
     }
 
     public int hashCode() {
@@ -39,7 +41,11 @@ public class EmployeeBook {
 
     public boolean remove(int id) {
         final int sizeBefore = arrEmployee.size();
-        arrEmployee.removeAll(arrEmployee.stream().filter(e -> e.getId() == id).toList());
+        arrEmployee
+                .removeAll(arrEmployee
+                        .stream()
+                        .filter(e -> e.getId() == id)
+                        .toList());
         return sizeBefore > arrEmployee.size();
     }
 
@@ -165,14 +171,11 @@ public class EmployeeBook {
                 .toList();
     }
 
-    public void indexSalaries(int ratePercent, int codeDepartment) {
-        if (ratePercent <= 0) {
-            throw new IllegalArgumentException("Rate can't be non-positive");
-        }
+    public void indexSalaries(double ratePercent, int codeDepartment) {
         arrEmployee
                 .stream()
                 .filter(e -> e.getCodeDepartment() == codeDepartment)
-                .forEach(e -> e.indexSalary(codeDepartment));
+                .forEach(e -> e.indexSalary(ratePercent));
     }
 
     public List<Employee> getEmployeeLessSalary(int salary) {

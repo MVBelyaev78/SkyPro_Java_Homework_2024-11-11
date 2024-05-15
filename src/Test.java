@@ -173,8 +173,9 @@ public class Test {
     }
 
     private static void runIndexSalaries(EmployeeBook employeeBook, int codeDepartment) {
+        double ratePercent = 13.7;
         System.out.println("Indexed salaries");
-        employeeBook.indexSalaries(13, codeDepartment);
+        employeeBook.indexSalaries(ratePercent, codeDepartment);
         employeeBook
                 .getEmployeeList(codeDepartment)
                 .forEach(e -> System.out.println(e.getEmployeeDataExceptDepartment()));

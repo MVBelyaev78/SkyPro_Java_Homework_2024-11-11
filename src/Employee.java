@@ -77,11 +77,11 @@ public class Employee {
         return Objects.hash(id, fullName, codeDepartment, salary);
     }
 
-    public void indexSalary(int ratePercent) {
-        if (ratePercent < 0) {
+    public void indexSalary(double ratePercent) {
+        if (ratePercent < 0d) {
             throw new IllegalArgumentException("Percent rate can't be negative");
         }
-        if (ratePercent > 0) {
+        if (ratePercent > 0d) {
             salary = (int) Math.ceil(salary * (1d + ratePercent / 100d));
         }
     }
