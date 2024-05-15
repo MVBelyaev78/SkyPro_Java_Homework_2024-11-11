@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Test {
     private static final int SALARY_BOUND = 4000;
     private final EmployeeBook employeeBook = new EmployeeBook();
@@ -15,7 +17,7 @@ public class Test {
         addNewEmployee("Susan Brown", 2, 6800);
         addNewEmployee("Larry Hagman", 2, 1250);
         addNewEmployee("Stanley Miller", 4, 3400);
-        addNewEmployee("Philipp Roberts", 3, 6800);
+        addNewEmployee("Philipp Roberts", 4, 6800);
         addNewEmployee("Neil Green", 4, 5000);
         addNewEmployee("Anna Williams", 4, 4000);
         addNewEmployee("Lucinda Watson", 5, 5000);
@@ -23,8 +25,15 @@ public class Test {
         addNewEmployee("Steve Romney", 5, 1250);
     }
 
-    public void runSuite01() {
-        runPrintAllEmployees();
+    public void runUnitedSuite() {
+        if (runPrintAllEmployees()) {
+            runSuit01();
+            runSuit02();
+            runSuite03();
+        }
+    }
+
+    public void runSuit01() {
         runPrintSumSalaries();
         runPrintAverageSalaries();
         System.out.println();
@@ -36,8 +45,7 @@ public class Test {
         runPrintEmployeesLessSalary();
         runPrintEmployeesMoreOrEqualSalary();
     }
-
-    public void runSuite02() {
+    public void runSuit02() {
         for (int d = Employee.MIN_CODE_DEPARTMENT; d <= Employee.MAX_CODE_DEPARTMENT; d++) {
             runSuiteConcreteDepartment(d);
         }
@@ -47,41 +55,53 @@ public class Test {
         System.out.println();
         runAddEmployee("Gordon Tennison", 2, 3900);
         runAddEmployee("Stewart Olson", 3, 5600);
-        runRemoveEmployee(3);
-        runRemoveEmployee(7);
+        runRemoveEmployee(1);
+        runRemoveEmployee(2);
         runRemoveEmployee(666);
         System.out.println();
-        runPrintAllEmployees();
-        runFindEmployee(1);
-        runFindEmployee(4);
-        runFindEmployee(1_000_000);
+        if (runPrintAllEmployees())
+        {
+            runFindEmployee(1);
+            runFindEmployee(4);
+            runFindEmployee(1_000_000);
+        }
     }
 
     private void runSuiteConcreteDepartment(int codeDepartment) {
         System.out.println("--------------------------------------------------------------\n");
-        runPrintAllEmployees(codeDepartment);
-        runPrintSumSalaries(codeDepartment);
-        runPrintAverageSalaries(codeDepartment);
-        runPrintLowestPaidEmployee(codeDepartment);
-        runPrintHighestPaidEmployee(codeDepartment);
-        runPrintEmployeesLessSalary(codeDepartment);
-        runPrintEmployeesMoreOrEqualSalary(codeDepartment);
-        runIndexSalaries(codeDepartment);
-    }
-
-    private void runPrintAllEmployees() {
-        employeeBook
-                .getEmployeeList()
-                .forEach(e -> System.out.println(e.getFullEmployeeData()));
-        System.out.println();
-    }
-
-    private void runPrintAllEmployees(int codeDepartment) {
         System.out.printf("Department code is %s\n\n", codeDepartment);
-        employeeBook
-                .getEmployeeList(codeDepartment)
-                .forEach(e -> System.out.println(e.getEmployeeDataExceptDepartment()));
+        if (runPrintAllEmployees(codeDepartment))
+        {
+            runPrintSumSalaries(codeDepartment);
+            runPrintAverageSalaries(codeDepartment);
+            runPrintLowestPaidEmployee(codeDepartment);
+            runPrintHighestPaidEmployee(codeDepartment);
+            runPrintEmployeesLessSalary(codeDepartment);
+            runPrintEmployeesMoreOrEqualSalary(codeDepartment);
+            runIndexSalaries(codeDepartment);
+        }
+    }
+
+    private boolean runPrintAllEmployees() {
+        boolean result = false;
+        final List<Employee> list = employeeBook.getEmployeeList();
+        if (!list.isEmpty()) {
+            list.forEach(e -> System.out.println(e.getFullEmployeeData()));
+            result = true;
+        }
         System.out.println();
+        return result;
+    }
+
+    private boolean runPrintAllEmployees(int codeDepartment) {
+        boolean result = false;
+        final List<Employee> list = employeeBook.getEmployeeList(codeDepartment);
+        if (!list.isEmpty()) {
+            list.forEach(e -> System.out.println(e.getEmployeeDataExceptDepartment()));
+            result = true;
+        }
+        System.out.println();
+        return result;
     }
 
     private void runPrintSumSalaries() {
