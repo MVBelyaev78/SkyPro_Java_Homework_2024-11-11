@@ -27,13 +27,13 @@ public class Test {
 
     public void runUnitedSuite() {
         if (runPrintAllEmployees()) {
-            runSuit01();
-            runSuit02();
+            runSuite01();
+            runSuite02();
             runSuite03();
         }
     }
 
-    public void runSuit01() {
+    public void runSuite01() {
         runPrintSumSalaries();
         runPrintAverageSalaries();
         System.out.println();
@@ -45,7 +45,8 @@ public class Test {
         runPrintEmployeesLessSalary();
         runPrintEmployeesMoreOrEqualSalary();
     }
-    public void runSuit02() {
+
+    public void runSuite02() {
         for (int d = Employee.MIN_CODE_DEPARTMENT; d <= Employee.MAX_CODE_DEPARTMENT; d++) {
             runSuiteConcreteDepartment(d);
         }
@@ -59,8 +60,7 @@ public class Test {
         runRemoveEmployee(2);
         runRemoveEmployee(666);
         System.out.println();
-        if (runPrintAllEmployees())
-        {
+        if (runPrintAllEmployees()) {
             runFindEmployee(1);
             runFindEmployee(4);
             runFindEmployee(1_000_000);
@@ -70,8 +70,7 @@ public class Test {
     private void runSuiteConcreteDepartment(int codeDepartment) {
         System.out.println("--------------------------------------------------------------\n");
         System.out.printf("Department code is %s\n\n", codeDepartment);
-        if (runPrintAllEmployees(codeDepartment))
-        {
+        if (runPrintAllEmployees(codeDepartment)) {
             runPrintSumSalaries(codeDepartment);
             runPrintAverageSalaries(codeDepartment);
             runPrintLowestPaidEmployee(codeDepartment);

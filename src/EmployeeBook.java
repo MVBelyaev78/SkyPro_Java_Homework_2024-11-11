@@ -1,8 +1,4 @@
-import java.util.Objects;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.OptionalInt;
-import java.util.OptionalDouble;
+import java.util.*;
 
 public class EmployeeBook {
     private final List<Employee> arrEmployee = new LinkedList<>();
@@ -50,13 +46,17 @@ public class EmployeeBook {
     }
 
     public List<Employee> getEmployeeList() {
-        return arrEmployee;
+        return arrEmployee
+                .stream()
+                .sorted(Comparator.comparing(Employee::getCodeDepartment).thenComparing(Employee::getFullName))
+                .toList();
     }
 
     public List<Employee> getEmployeeList(int codeDepartment) {
         return arrEmployee
                 .stream()
                 .filter(e -> e.getCodeDepartment() == codeDepartment)
+                .sorted(Comparator.comparing(Employee::getFullName))
                 .toList();
     }
 
@@ -85,6 +85,7 @@ public class EmployeeBook {
             result = arrEmployee
                     .stream()
                     .filter(e -> e.getSalary() == resultOptional.getAsInt())
+                    .sorted(Comparator.comparing(Employee::getCodeDepartment).thenComparing(Employee::getFullName))
                     .toList();
         }
         return result;
@@ -102,6 +103,7 @@ public class EmployeeBook {
                     .stream()
                     .filter(e -> e.getCodeDepartment() == codeDepartment
                             && e.getSalary() == resultOptional.getAsInt())
+                    .sorted(Comparator.comparing(Employee::getFullName))
                     .toList();
         }
         return result;
@@ -117,6 +119,7 @@ public class EmployeeBook {
             result = arrEmployee
                     .stream()
                     .filter(e -> e.getSalary() == resultOptional.getAsInt())
+                    .sorted(Comparator.comparing(Employee::getCodeDepartment).thenComparing(Employee::getFullName))
                     .toList();
         }
         return result;
@@ -134,6 +137,7 @@ public class EmployeeBook {
                     .stream()
                     .filter(e -> e.getCodeDepartment() == codeDepartment
                             && e.getSalary() == resultOptional.getAsInt())
+                    .sorted(Comparator.comparing(Employee::getFullName))
                     .toList();
         }
         return result;
@@ -182,6 +186,7 @@ public class EmployeeBook {
         return arrEmployee
                 .stream()
                 .filter(e -> e.getSalary() < salary)
+                .sorted(Comparator.comparing(Employee::getCodeDepartment).thenComparing(Employee::getFullName))
                 .toList();
     }
 
@@ -189,6 +194,7 @@ public class EmployeeBook {
         return arrEmployee
                 .stream()
                 .filter(e -> e.getCodeDepartment() == codeDepartment && e.getSalary() < salary)
+                .sorted(Comparator.comparing(Employee::getFullName))
                 .toList();
     }
 
@@ -196,6 +202,7 @@ public class EmployeeBook {
         return arrEmployee
                 .stream()
                 .filter(e -> e.getSalary() >= salary)
+                .sorted(Comparator.comparing(Employee::getCodeDepartment).thenComparing(Employee::getFullName))
                 .toList();
     }
 
@@ -203,6 +210,7 @@ public class EmployeeBook {
         return arrEmployee
                 .stream()
                 .filter(e -> e.getCodeDepartment() == codeDepartment && e.getSalary() >= salary)
+                .sorted(Comparator.comparing(Employee::getFullName))
                 .toList();
     }
 
@@ -210,6 +218,7 @@ public class EmployeeBook {
         return arrEmployee
                 .stream()
                 .filter(e -> e.getId() == id)
+                .sorted(Comparator.comparing(Employee::getCodeDepartment).thenComparing(Employee::getFullName))
                 .toList();
     }
 }
