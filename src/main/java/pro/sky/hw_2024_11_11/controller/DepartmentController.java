@@ -5,15 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.hw_2024_11_11.service.Department;
 import pro.sky.hw_2024_11_11.service.Employee;
+import pro.sky.hw_2024_11_11.service.TestDepartment;
 
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
-    private final Department department;
+    private final Department department = new Department(TestDepartment.createData());
 
-    public DepartmentController(Department department) {
-        this.department = department;
-    }
     @GetMapping
     public Iterable<Employee> getEmployees() {
         return department.getEmployeeList();

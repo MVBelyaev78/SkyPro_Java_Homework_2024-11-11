@@ -6,9 +6,10 @@ import java.util.*;
 
 @Service
 public class Department {
-    private final List<Employee> arrEmployee = new LinkedList<>();
+    private final List<Employee> arrEmployee;
 
-    public Department() {
+    public Department(List<Employee> arrEmployee) {
+        this.arrEmployee = arrEmployee;
     }
 
     public List<Employee> getArrEmployee() {
