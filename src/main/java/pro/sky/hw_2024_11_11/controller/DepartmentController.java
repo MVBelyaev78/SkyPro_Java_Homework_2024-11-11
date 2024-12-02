@@ -6,6 +6,7 @@ import pro.sky.hw_2024_11_11.service.Employee;
 import pro.sky.hw_2024_11_11.service.TestDepartment;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/departments")
@@ -18,22 +19,26 @@ public class DepartmentController {
     }
 
     @GetMapping("/all")
-    public Iterable<Employee> getEmployeeListB() {
-        return department.getEmployeeList();
+    public Iterable<Employee> getEmployeeList(
+            @RequestParam(value = "departmentId", required = false) Optional<Integer> departmentId) {
+        return departmentId
+                .map(department::getEmployeeList)
+                .orElseGet(department::getEmployeeList);
     }
 
-    @GetMapping("/sum-salaries-all")
-    public int getSumSalaries() {
-        return department.getSumSalaries();
+    @GetMapping("/min-salary")
+    public List<Employee> getLowestPaidEmployee(
+            @RequestParam(value = "departmentId", required = false) Optional<Integer> departmentId) {
+        return departmentId
+                .map(department::getLowestPaidEmployee)
+                .orElseGet(department::getLowestPaidEmployee);
     }
 
-    @GetMapping("/sum-salaries")
-    public int getSumSalaries(@RequestParam(value = "departmentId") int departmentId) {
-        return department.getSumSalaries(departmentId);
-    }
-
-    @GetMapping("/employee-fullnames")
-    public List<String> getEmployeeFullNames() {
-        return department.getEmployeeFullNames();
+    @GetMapping("/max-salary")
+    public List<Employee> getHighestPaidEmployee(
+            @RequestParam(value = "departmentId", required = false) Optional<Integer> departmentId) {
+        return departmentId
+                .map(department::getHighestPaidEmployee)
+                .orElseGet(department::getHighestPaidEmployee);
     }
 }
