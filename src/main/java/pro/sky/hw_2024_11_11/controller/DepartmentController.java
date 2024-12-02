@@ -22,14 +22,14 @@ public class DepartmentController {
         return department.getEmployeeList();
     }
 
-    @GetMapping("/sum-salaries")
+    @GetMapping("/sum-salaries-all")
     public int getSumSalaries() {
         return department.getSumSalaries();
     }
 
-    @GetMapping("/sum-salaries/{codeDepartment}")
-    public int getSumSalaries(@PathVariable int codeDepartment) {
-        return department.getSumSalaries(codeDepartment);
+    @GetMapping("/sum-salaries")
+    public int getSumSalaries(@RequestParam(value = "departmentId") int departmentId) {
+        return department.getSumSalaries(departmentId);
     }
 
     @GetMapping("/employee-fullnames")
