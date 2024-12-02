@@ -5,6 +5,8 @@ import pro.sky.hw_2024_11_11.service.Department;
 import pro.sky.hw_2024_11_11.service.Employee;
 import pro.sky.hw_2024_11_11.service.TestDepartment;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
@@ -18,5 +20,10 @@ public class DepartmentController {
     @GetMapping("/all")
     public Iterable<Employee> getEmployeeListB() {
         return department.getEmployeeList();
+    }
+
+    @GetMapping("/employee-fullnames")
+    public List<String> getEmployeeFullNames() {
+        return department.getEmployeeFullNames();
     }
 }
