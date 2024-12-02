@@ -22,6 +22,11 @@ public class DepartmentController {
         return department.getEmployeeList();
     }
 
+    @GetMapping("/sum-salaries")
+    public int getSumSalaries() {
+        return department.getSumSalaries();
+    }
+
     @GetMapping("/employee-fullnames")
     public List<String> getEmployeeFullNames() {
         return department.getEmployeeFullNames();
