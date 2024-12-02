@@ -1,8 +1,6 @@
 package pro.sky.hw_2024_11_11.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pro.sky.hw_2024_11_11.service.Department;
 import pro.sky.hw_2024_11_11.service.Employee;
 import pro.sky.hw_2024_11_11.service.TestDepartment;
@@ -14,6 +12,11 @@ public class DepartmentController {
 
     @GetMapping
     public Iterable<Employee> getEmployees() {
+        return department.getEmployeeList();
+    }
+
+    @GetMapping("/all")
+    public Iterable<Employee> getEmployeeListB() {
         return department.getEmployeeList();
     }
 }
